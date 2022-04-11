@@ -1,0 +1,42 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/login/login",
+    "pages/my/my",
+    "pages/notify/notify",
+    "pages/course/course",
+    "pages/grade/grade"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "智慧校园",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "borderStyle": "white",
+    "selectedColor": "#0366aa",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/index.png",
+        "selectedIconPath": "images/index_select.png"
+      },
+      {
+        "pagePath": "pages/notify/notify",
+        "text": "消息",
+        "iconPath": "images/notify.png",
+        "selectedIconPath": "images/notify_select.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "images/personal.png",
+        "selectedIconPath": "images/personal_select.png"
+      }
+    ]
+  },
+  
+  "sitemapLocation": "sitemap.json"
+}

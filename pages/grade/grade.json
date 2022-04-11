@@ -1,0 +1,10 @@
+{
+  "enablePullDownRefresh": true,
+  "navigationBarBackgroundColor": "#f4f4f4",
+  "navigationBarTitleText": "成绩查询 ",
+  "usingComponents": {
+    "van-tab": "@vant/weapp/tab/index",
+  "van-tabs": "@vant/weapp/tabs/index"
+  },
+  "styleIsolation": "apply-shared"
+}

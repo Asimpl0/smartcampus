@@ -1,0 +1,47 @@
+<!--pages/score/showScore/showScore.wxml-->
+<view class="remind-box" wx:if="{{isLoading}}">
+  <image class="remind-img" src="/images/loading.gif"></image>
+</view>
+<view class="page" wx:if="{{!isLoading}}">
+  <view class="tabs">
+    <van-tabs active="{{ active }}" bind:change="onChangeYear" color="#0251ff" line-width="20" sticky ellipsis>
+      <van-tab title="{{enteryear}}~{{enteryear +1}}">
+      </van-tab>
+      <van-tab title="{{enteryear +1}}~{{enteryear +2}}"></van-tab>
+      <van-tab title="{{enteryear +2}}~{{enteryear +3}}"></van-tab>
+      <van-tab title="{{enteryear +3}}~{{enteryear +4}}"></van-tab>
+    </van-tabs>
+    <van-tabs  active="{{ active }}" bind:change="onChangeSemester" color="#f66071" line-width="20" sticky ellipsis>
+      <van-tab title="学年"></van-tab>
+      <van-tab title="第一学期"></van-tab>
+      <van-tab title="第二学期"></van-tab>
+    </van-tabs>
+  </view>
+
+  <view class="page__hd" style='padding-top:10px;padding-bottom:10px;'>
+    <view class="page__desc text-white">
+      您的平均绩点为{{jsonContent.avg_point}} 总学分为{{jsonContent.total_score}}
+    </view>
+  </view>
+  <block wx:for="{{jsonContent}}" wx:key="scoolYear" wx:for-index="semester">
+    <view class="page__bd" style='background-color:#fff;border-radius:15px;padding-bottom:20px;' wx:if="{{semester!=='avg_point'&&semester!=='total_score'}}">
+      <view class="weui-cells__title">{{semester}}学期</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view wx:for="{{item.score}}" wx:key="ClassName" class="weui-cell">
+          <view class="weui-cell__bd">{{item.className}}({{item.classType}})\r\n
+            <view class="page__desc">
+              学分:{{item.credit==null?'无':item.credit}}
+            </view>
+          </view>
+          <view class="weui-cell__ft" style='color:red;' wx:if="{{item.score<60}}">{{item.score}}</view>
+          <view class="weui-cell__ft" style='color:green;' wx:elif="{{item.score >= 90}}">{{item.score}}</view>
+          <view class="weui-cell__ft" style='color:#000;' wx:else>{{item.score}}</view>
+        </view>
+      </view>
+      <view class="weui-media-box__info" style='color:#000;margin-left:10px;'>
+      </view>
+    </view>
+  </block>
+
+
+</view>
