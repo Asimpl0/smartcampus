@@ -22,9 +22,17 @@
   <image class = "icon" src="/images/book.png"></image>
   <text class="text">图书借阅</text>
   </view>
-  <view class="function" bindtap="">
+  <view wx:if="{{!more}}" class="function" bindtap="showMore">
   <image class = "icon" src="/images/more.png"></image>
   <text class="text">更多功能</text>
+  </view>
+  <view wx:if="{{more}}" class="function" bindtap="toCall">
+  <image  class = "icon" src="/images/search.png"></image>
+  <text class="text">电话查询</text>
+  </view>
+  <view wx:if="{{more}}" class="function" bindtap="showMore">
+  <image  class = "icon" src="/images/more.png"></image>
+  <text class="text">折叠功能</text>
   </view>
   </view>
   <view  class="notify">

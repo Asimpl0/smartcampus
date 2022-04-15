@@ -38,5 +38,8 @@ this.showCourse();
       }
       
     })
+  },
+  showCardView:function(){
+    
   }
 })

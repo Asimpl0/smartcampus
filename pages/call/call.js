@@ -1,39 +1,61 @@
-// pages/index/index.js
-const app = getApp();
+// pages/call/call.js
+var app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    more: false
+    value:"",
+    numbers:new Map(),
+    keys:[""]
   },
-  showMore(e){
+  onChange(e) {
     this.setData({
-      more:!this.data.more
-    })
-   //console.log(this.data.more)
+      value: e.detail,
+    });
   },
-  toCall(e){
-    wx.navigateTo({
-      url: '/pages/call/call',
-    })
+  onSearch() {
+    this.search(this.data.value)
   },
-  toCourse(e){
-    wx.navigateTo({
-      url: '/pages/course/course',
-    })
+  onClick() {
+    this.search(this.data.value)
   },
-  toGrade(e){
-    wx.navigateTo({
-      url: '/pages/grade/grade',
+  search(e) {
+    var header;
+    header = {
+      'content-type': 'application/x-www-form-urlencoded',
+    };
+    var URL = app.globalData.url + "number" +
+    "?dname=" + e;
+    wx.request({
+      url: URL,
+      method: "GET",
+      header: header,
+      success:(res)=>{
+        this.setData({
+          numbers: res.data
+        })
+        console.log(this.data.numbers)
+      }
+
     })
+    
+  },
+  toCopy(e){
+    console.log(e.currentTarget.dataset.num)
+    wx.setClipboardData({
+      data:e.currentTarget.dataset.num,//要复制的数据
+      success (res) {
+        console.log(res)
+      }
+   })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.setStorageSync('user', app.globalData.user_data)
+    this.search('all');
   },
 
   /**

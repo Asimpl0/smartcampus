@@ -4,7 +4,7 @@
 </view>
 <scroll-view scroll-y="true" class="scroll">
   <view style="height:1200rpx;width:730rpx;display:flex;">
-    <view style="background-color:#D2E6B3;color:#7cba23;">
+    <view style="background-color:#2794f6;color:#fff;">
       <view wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12]}}" class="left">
         {{item}}
       </view>
@@ -18,7 +18,7 @@
     <view wx:for="{{courses}}" wx:for-item="item">
     <view wx:for="{{(item.tdetail.length)}}" wx:for-item="index">
     <view wx:if="{{index%2 == 0}}" class="flex-item kcb-item" bindtap="showCardView" data-statu="open"  style="margin-left:{{(item.tdetail[index]-1)*100}}rpx;margin-top:{{(item.tdetail[index + 1]-1)*100+5}}rpx;height:{{item.nums*100-5}}rpx;background-color:{{colorArrays[index%9]}}">
-        <view class="smalltext" >{{item.cname}}</view>
+        <view class="smalltext" >{{item.cname}} ({{item.room}})</view>
       </view>
     </view>
       

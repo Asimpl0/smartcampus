@@ -33,7 +33,7 @@ swiper{
   justify-content: space-between;
   align-content: space-between;
   width: 700rpx;
-  height: 150rpx;
+  
   background: #fff;
   margin-top: 50rpx;
   border-radius: 20rpx;
