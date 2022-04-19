@@ -7,7 +7,7 @@ Page({
    */
   data: {
     value:"",
-    numbers:new Map(),
+    numbers:[""],
     keys:[""]
   },
   onChange(e) {
@@ -37,13 +37,21 @@ Page({
           numbers: res.data
         })
         console.log(this.data.numbers)
+        var keys = []
+        this.data.numbers.forEach(function(number){
+          keys.push(number.head)
+        }) 
+        this.setData({
+          keys:keys
+        })
+        console.log(keys)
       }
-
+      
     })
     
   },
   toCopy(e){
-    console.log(e.currentTarget.dataset.num)
+    //console.log(e.currentTarget.dataset.num)
     wx.setClipboardData({
       data:e.currentTarget.dataset.num,//要复制的数据
       success (res) {

@@ -1,0 +1,34 @@
+/* pages/mainten/mainten.wxss */
+Page{
+  background: #f7f8fa;
+  width: 100%;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center; */
+}
+
+.base{
+  margin-top: 45rpx;
+  width: 100%;
+}
+
+.buttom{
+  margin-top: 55rpx;
+}
+
+.tabbar{
+  display: flex;
+  justify-content: space-around;
+}
+
+.van-dropdown-menu{
+  display: flex;
+  justify-content: space-around;
+}
+.items{
+  margin-top: 25rpx;
+}
+.itemshow{
+  margin-bottom: 200rpx;
+}

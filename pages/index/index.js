@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    more: false
+    more: true
   },
   showMore(e){
     this.setData({
@@ -17,6 +17,11 @@ Page({
   toCall(e){
     wx.navigateTo({
       url: '/pages/call/call',
+    })
+  },
+  toMainten(e){
+    wx.navigateTo({
+      url: '/pages/mainten/mainten',
     })
   },
   toCourse(e){

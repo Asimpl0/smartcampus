@@ -30,6 +30,10 @@
   <image  class = "icon" src="/images/search.png"></image>
   <text class="text">电话查询</text>
   </view>
+  <view wx:if="{{more}}" class="function" bindtap="toMainten">
+  <image  class = "icon" src="/images/mainten.png"></image>
+  <text class="text">维修申报</text>
+  </view>
   <view wx:if="{{more}}" class="function" bindtap="showMore">
   <image  class = "icon" src="/images/more.png"></image>
   <text class="text">折叠功能</text>

@@ -1,24 +1,17 @@
 <view>
-  <van-search
-  value="{{ value }}"
-  
-  placeholder="请输入搜索关键词"
-  use-action-slot
-  bind:change="onChange"
-  bind:search="onSearch"
->
-  <view slot="action" bind:tap="onClick">搜索</view>
-</van-search>
-  <van-index-bar>
-  <view wx:for="{{numbers}}" wx:for-item="item">
-    <van-index-anchor index="{{item.head}}" />
-    <van-cell-group inset>
-    <view wx:for="{{item.numbers}}" wx:for-item="number">
-      <van-cell bind:click = "toCopy" title="{{number.dname}}" value="{{number.number}}" data-num = "{{number.number}}" />
-    </view>
- 
-</van-cell-group>
-  </view>
+  <van-search value="{{ value }}" placeholder="请输入搜索关键词" use-action-slot bind:change="onChange" bind:search="onSearch">
+    <view slot="action" bind:tap="onClick">搜索</view>
+  </van-search>
+  <van-index-bar index-list="{{ keys }}" sticky>
+    <view wx:for="{{numbers}}" wx:for-item="item">
+      <van-index-anchor index="{{item.head}}" />
+      <van-cell-group inset>
+        <view wx:for="{{item.numbers}}" wx:for-item="number">
+          <van-cell bind:click="toCopy" title="{{number.dname}}" value="{{number.number}}" data-num="{{number.number}}" />
+        </view>
 
-</van-index-bar>
+      </van-cell-group>
+    </view>
+
+  </van-index-bar>
 </view>

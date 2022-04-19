@@ -6,7 +6,8 @@
     "pages/notify/notify",
     "pages/course/course",
     "pages/grade/grade",
-    "pages/call/call"
+    "pages/call/call",
+    "pages/mainten/mainten"
   ],
   "window":{
     "backgroundTextStyle":"light",

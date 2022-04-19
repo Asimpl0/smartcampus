@@ -1,0 +1,104 @@
+<view wx:if="{{active}}">
+  <view class="base">
+  <van-cell-group inset>
+    <van-cell  label="基本信息"/>
+  <van-field
+    model:value="{{ name }}"
+    required
+    label="联系人"
+    placeholder="请输入联系人"
+    title-width="25%"
+    size = "large"
+    border="{{ false }}"
+  />
+
+  <van-field
+    model:value="{{ tele }}"
+    label="联系电话"
+    title-width="25%"
+    size = "large"
+    border="{{ false }}"
+    placeholder="请输入联系电话"
+    required
+    border="{{ false }}"
+  />
+  <van-field
+    model:value="{{ detail }}"
+    label="详细描述"
+    title-width="25%"
+    size = "large"
+    type="textarea"
+    autosize
+    border="{{ false }}"
+    maxlength="50"
+    show-word-limit
+    placeholder="请详细描述故障现象"
+    required
+    border="{{ false }}"
+  />
+</van-cell-group>
+</view>
+
+<view class="base">
+  <van-cell-group inset>
+    <van-cell label="报修地点"/>
+    <van-cell required title="区域地点" is-link value="{{area}}" bind:click="showpicker"  />
+    <van-field
+    model:value="{{ room }}"
+    label="详细地址"
+    title-width="25%"
+    size = "large"
+    border="{{ false }}"
+    placeholder="请输入详细地址"
+    required
+    border="{{ false }}"
+  />
+    <van-popup
+show="{{ show }}"
+  round
+  position="bottom"
+  custom-style="height: auto"
+  bind:close="onClose"
+>
+<van-picker
+  show-toolbar
+  title="区域选择"
+  columns="{{ columns }}"
+  bind:cancel="onCancel"
+  bind:confirm="onConfirm"
+  bind:change="onChange"
+/>
+</van-popup>
+
+</van-cell-group>
+<view class="buttom">
+  <van-cell-group inset>
+  <van-button type="primary" size="large" bind:click = "submit">提交</van-button>
+</van-cell-group>
+</view>
+</view>
+</view>
+<view class="itemshow" wx:if="{{!active}}">
+<view class="drop">
+  <van-dropdown-menu >
+  <van-dropdown-item bind:change="onSwitch1Change" value="{{ value1 }}" options="{{ option1 }}" />
+  <van-dropdown-item bind:change="onSwitch2Change" value="{{ value2 }}" options="{{ option2 }}" />
+</van-dropdown-menu>
+</view>
+<view class="items" wx:for="{{items}}">
+  <van-cell-group inset>
+    <van-cell  title="工单号：{{item.mid}}" value="{{item.status}}" />
+  <van-cell  title="问题描述：{{item.detail}}"  label="提交时间：{{item.bdate}} 完成时间：{{item.edate}}" border="{{ false }}" />
+</van-cell-group>
+</view>
+</view>
+
+<view class="tabbar">
+  <van-tabbar active="{{ active }}" bind:change="onChangeT">
+  <van-tabbar-item icon="add-o">提交</van-tabbar-item>
+  <van-tabbar-item icon="label-o" info="{{info}}">已有</van-tabbar-item>
+</van-tabbar>
+</view>
+
+
+

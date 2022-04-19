@@ -5,5 +5,6 @@
   "van-index-anchor": "@vant/weapp/index-anchor/index",
   "van-cell": "@vant/weapp/cell/index",
   "van-cell-group": "@vant/weapp/cell-group/index"
-  }
+  },
+  "navigationBarTitleText": "电话查询"
 }
