@@ -1,23 +1,31 @@
 <view class="container">
-  <view class="title">
-    <image class="logo" src="/images/author.png"></image>
-    <view class="tip">请输入学号密码进行绑定</view>
-  </view>
-  <view class="content">
-    <form class="login-form" bindsubmit="login" catchreset="formReset">
-      <view class="input-group">
-        <text class="input-label">学号</text>
-        <input name='uid' id='userid' type="number" cursor-spacing="30" bindinput='UidInput' value="{{username}}" />
-      </view>
-      <view class="input-group">
-        <text class="input-label">密码</text>
-        <input name='pwd' id='passwd' password="true" cursor-spacing="30" value="{{password}}" />
-      </view>
-      <view>
-        <button formType="submit" class="login-btn">
-          <view>确认绑定</view>
-        </button>
-      </view>
-    </form>
-  </view>
+  <van-cell-group inset>
+  <van-field
+  model:value="{{ username }}"
+    required
+    size="large" 
+    clearable
+    label="用户名"
+    icon="question-o"
+    placeholder="请输入用户名"
+    bind:click-icon="onClickIcon"
+  />
+
+  <van-field
+  model:value="{{ password }}"
+    type="password"
+    size="large" 
+    label="密码"
+    placeholder="请输入密码"
+    required
+    border="{{ false }}"
+  />
+</van-cell-group>
+<view style="margin-top: 50rpx;">
+  <van-cell-group  inset>
+  <van-button type="info" size="large" bind:click="login">登录</van-button>
+</van-cell-group>
 </view>
+
+</view>
+<van-toast id="van-toast" />

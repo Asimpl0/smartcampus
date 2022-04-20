@@ -1,5 +1,6 @@
 // pages/mainten/mainten.js
 var app = getApp();
+var util = require('../../utils/time.js')
 Page({
 
   /**
@@ -111,6 +112,12 @@ Page({
           area: '',
           room: ''
         })
+        var notify = {
+          text: "维修上报成功",
+          time: util.formatTime(new Date())
+        }
+        app.globalData.notifications.push(notify)
+        console.log(app.globalData.notifications)
         this.getDetail()
       }
     })

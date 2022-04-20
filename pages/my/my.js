@@ -1,18 +1,53 @@
 // pages/my/my.js
+var app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    show: false,
+    actions: [
+      { name: '获取用户信息', color: '#07c160', openType: 'getUserInfo' },
+    ],
+    hasUserInfo: false,
+    userInfo:'',
+    hasLogin:false
+  },
+  clearLogin(){
+    this.setData({
+      hasLogin:false
+    })
+    app.globalData.hasLogin=false
+    wx.clearStorageSync()
+  },
+  getInfo(){
+    this.setData({ show: true });
+  },
+  onClose() {
+    this.setData({ show: false });
   },
 
+  onGetUserInfo(e) {
+    this.setData({
+      hasUserInfo:true,
+      userInfo: e.detail.userInfo
+    })
+    app.globalData.hasUserInfo = true
+    wx.setStorageSync('hasUserInfo', this.data.hasUserInfo)
+    wx.setStorageSync('userInfo', e.detail.userInfo)
+    console.log(e.detail);
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      hasUserInfo: app.globalData.hasUserInfo,
+      userInfo: wx.getStorageSync('userInfo'),
+      
+    })
+    console.log(app.globalData.hasUserInfo)
   },
 
   /**
@@ -26,7 +61,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({
+      hasLogin:app.globalData.hasLogin
+    })
   },
 
   /**

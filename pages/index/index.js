@@ -6,7 +6,21 @@ Page({
    * 页面的初始数据
    */
   data: {
-    more: true
+    more: false,
+    notifications:[],
+    isnull:false,
+    hasLogin:false
+  },
+  toLogin(){
+    wx.navigateTo({
+      url: '/pages/login/login',
+    })
+  },
+  clearNotify(){
+    app.globalData.notifications = []
+    wx.setStorageSync('notifications', [])
+    
+    this.onShow()
   },
   showMore(e){
     this.setData({
@@ -14,31 +28,12 @@ Page({
     })
    //console.log(this.data.more)
   },
-  toCall(e){
-    wx.navigateTo({
-      url: '/pages/call/call',
-    })
-  },
-  toMainten(e){
-    wx.navigateTo({
-      url: '/pages/mainten/mainten',
-    })
-  },
-  toCourse(e){
-    wx.navigateTo({
-      url: '/pages/course/course',
-    })
-  },
-  toGrade(e){
-    wx.navigateTo({
-      url: '/pages/grade/grade',
-    })
-  },
+  
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.setStorageSync('user', app.globalData.user_data)
+    
   },
 
   /**
@@ -52,7 +47,18 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.setData({
+      notifications:app.globalData.notifications,
+      hasLogin : app.globalData.hasLogin
+    })
+    if(this.data.notifications.length == 0){
+        this.setData({
+          isnull:true
+        })
+    }
 
+    console.log(this.data.notifications)
+    wx.setStorageSync('notifications', app.globalData.notifications)
   },
 
   /**

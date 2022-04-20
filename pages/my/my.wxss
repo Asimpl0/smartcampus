@@ -1,0 +1,14 @@
+Page {
+  background-color: #f4f4f4;
+  width: 100%;
+}
+
+.my{
+  margin-top: 300rpx;
+}
+.user{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

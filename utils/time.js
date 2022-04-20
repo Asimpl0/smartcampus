@@ -1,14 +1,4 @@
-/**
 
- * 如有技术问题或商业合作，可以添加本人微信:Exixir99
-
- * @author 全黑科技
-
- * @Time 2021-06-16 21:49:01
-
- * @URL http://www.abtwork.com/
-
- */
 function formatTime(date) {
   var year = date.getFullYear()
   var month = date.getMonth() + 1
@@ -26,7 +16,7 @@ function formatTime(date) {
   weekday[5] = "星期五"
   weekday[6] = "星期六"
 
-  return year + "年" + month + "月" + day + "日" + "  " + weekday[d.getDay()] + '  ' + hour + "点"
+  return month + "月" + day + "日" + " " +hour + ':' +  minute
 }
 function formatTime_fanxiexian(date) {
   var year = date.getFullYear()

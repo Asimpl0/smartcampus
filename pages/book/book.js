@@ -1,4 +1,4 @@
-// pages/notify/notify.js
+// pages/book/book.js
 Page({
 
   /**

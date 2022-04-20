@@ -3,11 +3,11 @@
     "pages/index/index",
     "pages/login/login",
     "pages/my/my",
-    "pages/notify/notify",
     "pages/course/course",
     "pages/grade/grade",
     "pages/call/call",
-    "pages/mainten/mainten"
+    "pages/mainten/mainten",
+    "pages/book/book"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -24,12 +24,6 @@
         "text": "首页",
         "iconPath": "images/index.png",
         "selectedIconPath": "images/index_select.png"
-      },
-      {
-        "pagePath": "pages/notify/notify",
-        "text": "消息",
-        "iconPath": "images/notify.png",
-        "selectedIconPath": "images/notify_select.png"
       },
       {
         "pagePath": "pages/my/my",

@@ -1,5 +1,6 @@
 // pages/login/login.js
 var app = getApp();
+import Toast from '@vant/weapp/toast/toast';
 Page({
 
   /**
@@ -9,15 +10,15 @@ Page({
     username: '',
     password: '',
   },
+  onClickIcon(){
+    Toast('用户名为学号');
+  },
+  
 // 登录
 login(e){
-  var form = e.detail.value
-  console.log(form)
-  if (form.uid == "" | form.pwd == "") {
-    wx.showToast({
-      icon: 'error',
-      title: '请输入完整',
-    })
+
+  if (this.data.username == "" | this.data.password == "") {
+    Toast('请输入完整');
     return
   }
 
@@ -34,7 +35,7 @@ login(e){
   }
   //console.log(cookie)
   var URL = app.globalData.url +
-    "login" + "?uid=" + form.uid + "&passwd=" + form.pwd;
+    "login" + "?uid=" + this.data.username + "&passwd=" + this.data.password;
   //console.log("login")
   wx.request({
     url: URL,
@@ -49,21 +50,14 @@ login(e){
       console.log(res.data)
       var result = res.data.trim()
       if (result == 'success') {
-        wx.setStorageSync('is_bind', true)
-        wx.showToast({
-          icon: 'success',
-          title: '认证成功',
-          duration: 3000
-        })
+        app.globalData.hasLogin = true
+        wx.setStorageSync('hasLogin', true)
+        Toast('登录成功');
         wx.navigateBack({
           url:"/pages/my/my"
         })
       } else {
-        wx.showToast({
-          icon: 'error',
-          title: '认证失败',
-          duration: 3000
-        })
+        Toast('登录失败');
       }
     }
   })
@@ -73,7 +67,7 @@ login(e){
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    
   },
 
   /**

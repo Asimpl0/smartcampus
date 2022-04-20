@@ -1,5 +1,5 @@
-<view class="container">
-<view>
+<view class="section">
+<van-cell-group inset border="{{false}}">
   <swiper autoplay interval="4000" circular>
     <swiper-item>
       <image class="image1" mode="widthFix" src="/images/swiper_1.jpg" />
@@ -8,8 +8,91 @@
       <image class="image2" mode="widthFix" src="/images/swiper_1.jpg" />
     </swiper-item>
   </swiper>
+</van-cell-group>
 </view>
-  <view class="functions">
+<view wx:if="{{!hasLogin}}" style="margin-top: 25rpx;">
+  <van-cell-group  inset>
+  <van-cell center>
+  <view style="display: flex;justify-content: center;">
+    <van-button type= "info" size="normal" bind:click="toLogin" >前往身份验证</van-button>
+  </view>
+  </van-cell>
+  </van-cell-group>
+</view>
+
+<view wx:if="{{hasLogin}}" class="section">
+  <van-cell-group inset>
+  <van-cell label="功能列表" />
+  <van-grid square border= "{{false}}">
+  <van-grid-item 
+  icon="/images/course.png" 
+  text="课表查询" 
+  link-type="navigateTo"
+  url="/pages/course/course"/>
+  <van-grid-item 
+  icon="/images/grade.png"
+  text="成绩查询"
+  link-type="navigateTo"
+  url="/pages/grade/grade" />
+  <van-grid-item 
+  icon="/images/book.png" 
+  text="图书借阅" 
+  link-type="navigateTo"
+  url="/pages/book/book"/>
+  <van-grid-item
+  wx:if="{{!more}}" 
+  icon="/images/more.png" 
+  text="更多功能" 
+  bind:click="showMore"/>
+  <van-grid-item 
+  wx:if="{{more}}"
+  icon="/images/search.png/" 
+  text="电话查询" 
+  link-type="navigateTo"
+  url="/pages/call/call"/>
+  <van-grid-item 
+  wx:if="{{more}}"
+  icon="/images/mainten.png"
+  text="维修申报"
+  link-type="navigateTo"
+  url="/pages/mainten/mainten" />
+  <van-grid-item 
+  wx:if="{{more}}"
+  icon="/images/search.png/" 
+  text="电话查询" 
+  link-type="navigateTo"
+  url="/pages/call/call"/>
+  <van-grid-item 
+  wx:if="{{more}}"
+  icon="/images/mainten.png"
+  text="维修申报"
+  link-type="navigateTo"
+  url="/pages/mainten/mainten" />
+  <van-grid-item 
+  wx:if="{{more}}"
+  icon="/images/more.png" 
+  text="折叠功能" 
+  bind:click="showMore"/>
+</van-grid>
+  </van-cell-group>
+</view>
+<view class="section">
+<van-cell-group inset>
+  <van-cell label="消息列表">
+  <van-icon slot="right-icon" name="delete-o" size="40rpx" bind:click="clearNotify" />
+</van-cell>
+<view wx:if="{{isnull}}">
+  <van-cell >
+    <text style="display: flex;justify-content: center;">暂无消息</text>
+  </van-cell>
+</view>
+<view wx:for="{{notifications}}" >
+<van-cell title="{{item.text}}" value="{{item.time}}" />
+</view>
+</van-cell-group>
+</view>
+
+  <!-- <view class="functions">
   <view class="function" bindtap="toCourse">
   <image class = "icon" src="/images/course.png"></image>
   <text class="text">课表查询</text>
@@ -42,5 +125,5 @@
   <view  class="notify">
   <view>
   </view>
-  </view>
-</view>
+  </view> -->
+
