@@ -1,13 +1,14 @@
 {
-  "pages":[
-    "pages/index/index",
+  "pages":["pages/index/index",
+    "pages/book/book",
+    
     "pages/login/login",
     "pages/my/my",
     "pages/course/course",
     "pages/grade/grade",
     "pages/call/call",
-    "pages/mainten/mainten",
-    "pages/book/book"
+    "pages/mainten/mainten"
+   
   ],
   "window":{
     "backgroundTextStyle":"light",

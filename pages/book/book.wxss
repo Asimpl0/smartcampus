@@ -1,1 +1,10 @@
-/* pages/book/book.wxss */
+Page{
+  background: #f7f8fa;
+}
+
+.book{
+  margin-top: 25rpx;
+}
+.section{
+  margin-top: 25rpx;
+}

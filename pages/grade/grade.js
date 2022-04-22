@@ -10,24 +10,40 @@ Page({
     enteryear: 2018,
     year: 2018,
     semester: 0 ,//0表示总学年 1表示第一学期 2表示第二学期,
-    scores:[""]
+    scores:[""],
+    option1: [],
+    option2: [
+      { text: '学年', value: 0 },
+      { text: '第一学期', value: 1 },
+      { text: '第二学期', value: 2 },
+    ],
+    value1: 0,
+    value2: 0,
   },
   /**
    * 生命周期函数--监听页面加载   
    */
   onLoad: function (options) {
+    this.setData({
+      option1:[
+        { text: this.data.enteryear + '-' + (this.data.enteryear + 1), value: 0 },
+        { text: (this.data.enteryear + 1) + '-' + (this.data.enteryear + 2), value: 1 },
+        { text: (this.data.enteryear + 2) + '-' + (this.data.enteryear + 3), value: 2 },
+        { text: (this.data.enteryear + 3) + '-' + (this.data.enteryear + 4), value: 3 },
+      ]
+    })
     this.showGrade();
   },
   onChangeYear: function (event) {
     this.setData({
-      year: this.data.enteryear + event.detail.name
+      year: this.data.enteryear + event.detail
     })
     console.log(this.data.year)
     this.showGrade()
   },
   onChangeSemester: function (event) {
     this.setData({
-      semester: event.detail.name
+      semester: event.detail
     })
     console.log(this.data.semester)
     this.showGrade()

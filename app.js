@@ -14,10 +14,12 @@ App({
         }
       }),
       this.globalData = {
-        url: "http://39.105.188.70:8080/api/",
-        notifications: wx.getStorageSync('notifications'),
+        // url: "http://39.105.188.70:8080/api/",
+        url: "http://127.0.0.1:8080/api/",
+        notifications: [''],
         hasUserInfo: wx.getStorageSync('hasUserInfo'),
         hasLogin: wx.getStorageSync('hasLogin'),
+        uid:wx.getStorageSync('uid')
       }
     console.log(this.globalData.hasUserInfo)
   }

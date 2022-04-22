@@ -86,7 +86,7 @@
     <text style="display: flex;justify-content: center;">暂无消息</text>
   </van-cell>
 </view>
-<view wx:for="{{notifications}}" >
+<view wx:if="{{!isnull}}"wx:for="{{notifications}}" >
 <van-cell title="{{item.text}}" value="{{item.time}}" />
 </view>
 </van-cell-group>

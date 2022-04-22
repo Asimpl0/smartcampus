@@ -18,6 +18,25 @@ function formatTime(date) {
 
   return month + "月" + day + "日" + " " +hour + ':' +  minute
 }
+function formatTime_book(date,days){
+  var year = date.getFullYear()
+  var month = date.getMonth() + 1
+  var day = date.getDate()
+  var hour = date.getHours()
+  var minute = date.getMinutes()
+
+  var d = new Date()
+  var weekday = new Array(7)
+  weekday[0] = "星期日"
+  weekday[1] = "星期一"
+  weekday[2] = "星期二"
+  weekday[3] = "星期三"
+  weekday[4] = "星期四"
+  weekday[5] = "星期五"
+  weekday[6] = "星期六"
+
+  return month + "月" + (day + days) + "日" + " " +hour + ':' +  minute
+}
 function formatTime_fanxiexian(date) {
   var year = date.getFullYear()
   var month = date.getMonth() + 1
@@ -136,6 +155,7 @@ function DateDiff_days(sDate1, sDate2) {    //sDate1和sDate2是2002-12-18格式
 
 module.exports = {
   formatTime: formatTime,
+  formatTime_book: formatTime_book,
   CompareDate: CompareDate,
   formatTime_month: formatTime_month,
   get_date_diff:get_date_diff,

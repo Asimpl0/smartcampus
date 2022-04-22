@@ -1,2 +1,198 @@
-<!--pages/book/book.wxml-->
-<text>pages/book/book.wxml</text>
+<view style="margin-bottom: 150rpx;" wx:if="{{active}}">
+<van-search
+  model:value="{{ book }}"
+  placeholder="请输入搜索关键词"
+  use-action-slot
+  bind:search="onSearch"
+>
+  <view slot="action" bind:tap="onSearch">搜索</view>
+</van-search>
+<van-dropdown-menu>
+  <van-dropdown-item value="{{ value1 }}" options="{{ option1 }}" bind:change="onChangeStatus" />
+  <van-dropdown-item value="{{ value2 }}" options="{{ option2 }}" bind:change="onChangeType" />
+</van-dropdown-menu>
+<view wx:for="{{books}}">
+<view class="book">
+  <van-cell-group inset>
+  <van-cell center title-width="80%"title="{{item.bname}}" value="编号：{{item.bid}}" />
+  <van-cell center title-width="80%"title="作者：{{item.bauthor}}"  label="出版社：{{item.bpublisher}}"  border="{{ false }}" >
+    <van-button wx:if="{{item.bnum>0}}" bind:click="showPopup" data-book= "{{item}}" icon="orders-o" type="info" size="small">借阅</van-button>
+    </van-cell>
+</van-cell-group>
+</view>
+</view>
+</view>
+<view class="tabbar">
+  <van-tabbar active="{{ active }}" bind:change="onChange">
+  <van-tabbar-item icon="search">搜索</van-tabbar-item>
+  <van-tabbar-item icon="sign" info="{{borrowedlength}}">已借</van-tabbar-item>
+</van-tabbar>
+</view>
+<van-popup 
+  show="{{ showSubmit }}"
+  round
+  closeable
+  position="bottom"
+  custom-style="height: 70%"
+  bind:close="onClose"
+  close-on-click-overlay = "{{false}}"
+>
+<text style="display: flex;justify-content: center;margin-top: 30rpx;color: gray;">图书借阅</text>
+<view style="margin-top: 50rpx;">
+<view class="section">
+  <van-cell-group inset >
+    <van-steps steps="{{ steps }}" active="{{ stepsactive }}" active-icon="success"/>
+  </van-cell-group>
+</view>
+<view wx:if="{{stepsactive==0}}" class="section">
+  <van-cell-group inset>
+  <van-field
+    value="{{bookselect.bname}}"
+    label="名称"
+    required
+    readonly
+    border="{{ false }}"
+  />
+  <van-field
+    value="{{bookselect.bauthor}}"
+    label="作者"
+    required
+    readonly
+    border="{{ false }}"
+  />
+  <van-field
+    value="{{bookselect.bpublisher}}"
+    label="出版社"
+    required
+    readonly
+    border="{{ false }}"
+  />
+  <van-field
+    value="{{bookselect.bid}}"
+    label="图书编号"
+    required
+    readonly
+    border="{{ false }}"
+  />
+</van-cell-group>
+<view style="margin-top: 50rpx;">
+  <van-cell-group inset >
+    <van-button bind:click="next" type="info" size="large">下一步</van-button>
+  </van-cell-group>
+</view>
+</view>
+<view wx:if="{{stepsactive==1}}">
+<view class="section">
+<van-cell-group inset>
+  <van-field wx:if="{{!showselect}}"
+    value="{{dayselect}} 天"
+    label="借阅时间"
+    size = "large"
+    required
+    readonly
+    border="{{ false }}"
+    icon="replay"
+    bind:click-icon="onReselect"
+  />
+  <van-picker wx:if="{{showselect}}" default-index = "{{defaultindex}}" show-toolbar title="选择借阅时间" bind:confirm="onConfirm" visible-item-count = "{{4}}" columns="{{ columns }}" bind:change="onChange" />
+</van-cell-group>
+<view style="margin-top: 50rpx;">
+  <van-cell-group inset >
+    <van-button bind:click="back" type="primary" size="large">上一步</van-button>
+  </van-cell-group>
+</view>
+<view style="margin-top: 25rpx;">
+  <van-cell-group inset >
+    <van-button bind:click="last" type="info" size="large">下一步</van-button>
+  </van-cell-group>
+</view>
+</view>
+</view>
+<view wx:if="{{stepsactive==2}}">
+  <view style="margin-top: 50rpx;">
+  <van-cell-group inset >
+    <van-field
+    value="{{bookselect.bname}}"
+    label="图书名称"
+    required
+    readonly
+    border="{{ false }}"
+  />
+  <van-field
+    value="{{bookselect.bid}}"
+    label="图书编号"
+    required
+    readonly
+    border="{{ false }}"
+  />
+  <van-field
+    value="{{uid}}"
+    label="学号"
+    required
+    readonly
+    border="{{ false }}"
+  />
+  <van-field
+    value="{{backday}}"
+    label="最后还书时间"
+    required
+    readonly
+    border="{{ false }}"
+  />
+  </van-cell-group>
+  <view style="margin-top: 50rpx;">
+  <van-cell-group inset >
+    <van-button bind:click="submitBorrow" type="info" size="large">完成</van-button>
+  </van-cell-group>
+</view>
+</view>
+</view>
+</view>
+</van-popup>
+
+<view style="margin-top: 30rpx; margin-bottom: 200rpx;" wx:if="{{!active}}" >
+<view style="margin-top: 25rpx;" wx:for="{{borrowed}}">
+  <van-cell-group inset>
+  <van-cell title-width="30%" title="单号：{{item.boid}}" value="借书日期：{{item.bsdate}}" />
+    <van-cell wx:if="{{item.brate !='未评价'}}" title="书名：{{item.bname}}" value="{{item.brate}}" label="还书日期：{{item.bedate}}" border="{{ false }}" />
+    <van-cell wx:if="{{item.brate =='未评价'}}" title="书名：{{item.bname}}"  label="还书日期：{{item.bedate}}" border="{{ false }}" >
+      <van-button bind:click="showRate" data-book= "{{item}}" icon="good-job-o" type="info" size="small">评分</van-button>
+    </van-cell>
+  </van-cell-group>
+</view>
+  
+</view>
+
+<van-popup 
+  show="{{ showRate }}"
+  round
+  closeable
+  position="bottom"
+  custom-style="height: 50%"
+  bind:close="onClose"
+  close-on-click-overlay = "{{false}}"
+>
+<text style="display: flex;justify-content: center;margin-top: 30rpx;color: gray;">图书评分</text>
+<view style="margin-top: 40rpx;">
+  <van-cell-group inset>
+  <van-cell size="large" title-width="20%" title="评分：" >
+    <van-rate
+  model:value="{{ ratevalue }}"
+  allow-half
+  size="50rpx"
+  gutter="15rpx"
+  void-icon="star"
+  void-color="#eee"
+  bind:change="onChange"
+/>
+  </van-cell>
+</van-cell-group>
+  <view style="margin-top: 40rpx;">
+    <van-cell-group inset>
+    <van-button bind:click="submitRate" type="info" size="large">提交评分</van-button>
+  </van-cell-group>
+  </view>
+
+
+</view>
+</van-popup>

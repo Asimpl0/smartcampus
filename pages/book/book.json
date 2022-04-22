@@ -1,3 +1,18 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "van-search": "@vant/weapp/search/index",
+    "van-tabbar": "@vant/weapp/tabbar/index",
+  "van-tabbar-item": "@vant/weapp/tabbar-item/index",
+  "van-dropdown-menu": "@vant/weapp/dropdown-menu/index",
+  "van-dropdown-item": "@vant/weapp/dropdown-item/index",
+  "van-cell": "@vant/weapp/cell/index",
+  "van-cell-group": "@vant/weapp/cell-group/index",
+  "van-steps": "@vant/weapp/steps/index",
+  "van-popup": "@vant/weapp/popup/index",
+  "van-icon": "@vant/weapp/icon/index",
+  "van-button": "@vant/weapp/button/index",
+  "van-field": "@vant/weapp/field/index",
+  "van-picker": "@vant/weapp/picker/index",
+  "van-rate": "@vant/weapp/rate/index"
+  }
 }

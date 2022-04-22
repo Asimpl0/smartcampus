@@ -2,7 +2,7 @@
 
 <view class="page">
   <view class="tabs">
-    <van-tabs active="{{ active }}" bind:change="onChangeYear" color="#0251ff" line-width="20" sticky ellipsis>
+    <!-- <van-tabs active="{{ active }}" bind:change="onChangeYear" color="#0251ff" line-width="20" sticky ellipsis>
       <van-tab title="{{enteryear}}~{{enteryear +1}}">
       </van-tab>
       <van-tab title="{{enteryear +1}}~{{enteryear +2}}"></van-tab>
@@ -13,7 +13,11 @@
       <van-tab title="学年"></van-tab>
       <van-tab title="第一学期"></van-tab>
       <van-tab title="第二学期"></van-tab>
-    </van-tabs>
+    </van-tabs> -->
+    <van-dropdown-menu>
+  <van-dropdown-item value="{{ value1 }}" options="{{ option1 }}"  bind:change="onChangeYear" />
+  <van-dropdown-item value="{{ value2 }}" options="{{ option2 }}"  bind:change="onChangeSemester" />
+</van-dropdown-menu>
   </view>
 
   <view class="page__hd">

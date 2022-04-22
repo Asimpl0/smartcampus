@@ -21,7 +21,7 @@ login(e){
     Toast('请输入完整');
     return
   }
-
+  wx.setStorageSync('uid', this.data.username)
   //开始验证登录是否正确
   var header;
   header = {
