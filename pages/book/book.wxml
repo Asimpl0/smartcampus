@@ -11,11 +11,25 @@
   <van-dropdown-item value="{{ value1 }}" options="{{ option1 }}" bind:change="onChangeStatus" />
   <van-dropdown-item value="{{ value2 }}" options="{{ option2 }}" bind:change="onChangeType" />
 </van-dropdown-menu>
+<view wx:if="{{ShowUserRecommend}}">
+  <van-cell-group inset title = "与您兴趣相同的用户借阅了：">
+</van-cell-group>
+<view wx:for="{{UserRecommendList}}">
+<view class="book">
+  <van-cell-group inset >
+  <van-cell center title-width="70%"title="{{item.bname}}" value="编号：{{item.bid}}" />
+  <van-cell center title-width="70%"title="作者：{{item.bauthor}}"  label="出版社：{{item.bpublisher}}"  border="{{ false }}" >
+    <van-button wx:if="{{item.bnum>0}}" bind:click="showPopup" data-book= "{{item}}" icon="orders-o" type="info" size="small">借阅</van-button>
+    </van-cell>
+</van-cell-group>
+</view>
+</view>
+</view>
 <view wx:for="{{books}}">
 <view class="book">
   <van-cell-group inset>
-  <van-cell center title-width="80%"title="{{item.bname}}" value="编号：{{item.bid}}" />
-  <van-cell center title-width="80%"title="作者：{{item.bauthor}}"  label="出版社：{{item.bpublisher}}"  border="{{ false }}" >
+  <van-cell center title-width="70%"title="{{item.bname}}" value="编号：{{item.bid}}" />
+  <van-cell center title-width="70%"title="作者：{{item.bauthor}}"  label="出版社：{{item.bpublisher}}"  border="{{ false }}" >
     <van-button wx:if="{{item.bnum>0}}" bind:click="showPopup" data-book= "{{item}}" icon="orders-o" type="info" size="small">借阅</van-button>
     </van-cell>
 </van-cell-group>
@@ -142,10 +156,29 @@
   </van-cell-group>
   <view style="margin-top: 50rpx;">
   <van-cell-group inset >
-    <van-button bind:click="submitBorrow" type="info" size="large">完成</van-button>
+    <van-button bind:click="submitBorrow" type="info" size="large">提交</van-button>
   </van-cell-group>
 </view>
 </view>
+</view>
+</view>
+<view wx:if="{{stepsactive==3}}">
+  <van-cell-group inset title = "借阅该书的用户也借阅了：">
+</van-cell-group>
+  <view wx:for="{{ItemRecommendList}}">
+<view class="book">
+  <van-cell-group inset >
+  <van-cell center title-width="70%"title="{{item.bname}}" value="编号：{{item.bid}}" />
+  <van-cell center title-width="70%"title="作者：{{item.bauthor}}"  label="出版社：{{item.bpublisher}}"  border="{{ false }}" >
+    <van-button wx:if="{{item.bnum>0}}" bind:click="showPopup" data-book= "{{item}}" icon="orders-o" type="info" size="small">借阅</van-button>
+    </van-cell>
+</van-cell-group>
+</view>
+</view>
+<view style="margin-top: 25rpx;">
+  <van-cell-group inset >
+    <van-button bind:click="finishBorrow" type="info" size="large">完成</van-button>
+  </van-cell-group>
 </view>
 </view>
 </van-popup>

@@ -37,6 +37,10 @@ Page({
       {
         text: '步骤三',
         desc: '完成借阅',
+      },
+      {
+        text: '步骤四',
+        desc: '相似推荐',
       }
     ],
     bookselect:'',//选择的图书信息
@@ -47,10 +51,13 @@ Page({
     showselect:true,//是否展示时间选择
     backday:'',//最晚还书时间
     uid:app.globalData.uid,
-    borrowed:[],
-    borrowedlength:0,
-    ratevalue:0.0,
-    rateboid:''
+    borrowed:[],//借书列表
+    borrowedlength:0,//借书数量
+    ratevalue:0.0,//评分
+    rateboid:'',//评分单号
+    UserRecommendList:[],//基于用户的推荐列表
+    ShowUserRecommend:true,//是否展示基于用户的推荐
+    ItemRecommendList:[]
   },
   //用于展示评分弹窗
   submitRate(){
@@ -127,11 +134,17 @@ Page({
       }
     })
     this.setData({
-      showSubmit:false,
-      active:false,
       bookselect:'',
-      stepsactive:0,
+      stepsactive:this.data.stepsactive+1,
       showselect:true
+    })
+    this.showBorrowed()
+  },
+  finishBorrow(){
+    this.setData({
+      showSubmit:false,
+      stepsactive:0,
+      active:false,
     })
     this.showBorrowed()
   },
@@ -204,8 +217,10 @@ Page({
     console.log(event.currentTarget.dataset.book)
     this.setData({ 
     showSubmit: true ,
+    stepsactive:0,
     bookselect:event.currentTarget.dataset.book
     });
+    this.ItemRecommend()
   },
 
   onClose() {
@@ -231,7 +246,8 @@ Page({
   },
   onSearch(){
     this.setData({
-      option2:[{ text: '全部类型', value: 0 }   ]
+      option2:[{ text: '全部类型', value: 0 }   ],
+      ShowUserRecommend: false
     })
     console.log(this.data.book)
     var header;
@@ -279,11 +295,65 @@ Page({
       active: event.detail==0
     });
   },
+  //基于用户的协同过滤推荐
+  UserRecommend(){
+    var header;
+    header = {
+      'content-type': 'application/x-www-form-urlencoded',
+    };
+    //从本地读取之前获得的cookie
+    var cookie = wx.getStorageSync('cookieKey'); //取出Cookie
+    //若存在cookie，加入请求
+    if (cookie) {
+      header.Cookie = cookie;
+    }
+    //console.log(cookie)
+    var URL = app.globalData.url + "book" + "?funct=4";
+    //console.log("login")
+    wx.request({
+      url: URL,
+      method: "GET",
+      header: header,
+      success:(res)=>{
+        //console.log(res.data)
+        this.setData({
+          UserRecommendList:res.data
+        })
+      }
+    })
+  },
+  //基于用户的协同过滤推荐
+  ItemRecommend(){
+    var header;
+    header = {
+      'content-type': 'application/x-www-form-urlencoded',
+    };
+    //从本地读取之前获得的cookie
+    var cookie = wx.getStorageSync('cookieKey'); //取出Cookie
+    //若存在cookie，加入请求
+    if (cookie) {
+      header.Cookie = cookie;
+    }
+    //console.log(cookie)
+    var URL = app.globalData.url + "book" + "?funct=5&bid=" + this.data.bookselect.bid;
+    //console.log("login")
+    wx.request({
+      url: URL,
+      method: "GET",
+      header: header,
+      success:(res)=>{
+        console.log(res.data)
+        this.setData({
+          ItemRecommendList:res.data
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.UserRecommend()
   },
 
   /**

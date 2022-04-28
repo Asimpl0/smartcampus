@@ -3,7 +3,7 @@ Page{
 }
 
 .book{
-  margin-top: 25rpx;
+  margin-top: 10rpx;
 }
 .section{
   margin-top: 25rpx;
