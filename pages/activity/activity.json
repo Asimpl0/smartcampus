@@ -1,4 +1,4 @@
-{"navigationBarTitleText": "图书借阅",
+{"navigationBarTitleText": "活动参与",
   "usingComponents": {
     "van-search": "@vant/weapp/search/index",
     "van-tabbar": "@vant/weapp/tabbar/index",

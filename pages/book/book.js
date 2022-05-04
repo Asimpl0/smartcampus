@@ -100,10 +100,14 @@ Page({
   },
   showRate(event){
     console.log(event.currentTarget.dataset.book.boid)
-    this.setData({
-      showRate:true,
-      rateboid:event.currentTarget.dataset.book.boid
+    wx.navigateTo({
+      url: '/pages/put/put?id=1&funct=1&blockid=0&itemid=' + event.currentTarget.dataset.book.boid,
     })
+
+    // this.setData({
+    //   showRate:true,
+    //   rateboid:event.currentTarget.dataset.book.boid
+    // })
   },
   submitBorrow(){
     wx.showToast({
@@ -354,6 +358,9 @@ Page({
    */
   onLoad: function (options) {
     this.UserRecommend()
+    this.setData({
+      uid:wx.getStorageSync('uid')
+    })
   },
 
   /**

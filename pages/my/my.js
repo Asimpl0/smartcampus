@@ -37,6 +37,31 @@ Page({
     wx.setStorageSync('hasUserInfo', this.data.hasUserInfo)
     wx.setStorageSync('userInfo', e.detail.userInfo)
     console.log(e.detail);
+    //将用户头像和昵称保存到服务器
+    var header;
+    header = {
+      'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+    };
+    //从本地读取之前获得的cookie
+    var cookie = wx.getStorageSync('cookieKey'); //取出Cookie
+    //若存在cookie，加入请求
+    if (cookie) {
+      header.Cookie = cookie;
+    }
+    //console.log(cookie)
+    var URL = app.globalData.url + "login";
+    wx.request({
+      url: URL,
+      method: "POST",
+      header: header,
+      data:{
+        'nickName':this.data.userInfo.nickName,
+        'avatarUrl':this.data.userInfo.avatarUrl
+      },
+      success:(res)=>{
+        console.log(res.data)
+      }
+    })
   },
   /**
    * 生命周期函数--监听页面加载

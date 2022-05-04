@@ -1,0 +1,96 @@
+<!-- 搜索框 -->
+<van-cell-group inset>
+  <van-search
+  shape="round"
+  value="{{ value }}"
+  placeholder="请输入搜索关键词"
+  use-action-slot
+  bind:change="onChange"
+  bind:search="onSearch"
+>
+  <view slot="action" bind:tap="showPopup"><van-icon style="margin-top: auto;" size="55rpx" color="#2794f6" name="add" /></view>
+</van-search>
+</van-cell-group>
+<!-- 板块排序方式选择 -->
+<view style="margin-top: 30rpx;">
+<van-cell-group inset>
+  <van-cell title="{{blockname}}" value="{{sorts[sort]}}" border="{{ false }}">
+    <van-icon style="margin-right: 20rpx;" bind:click="changeBlock" slot="icon" name="arrow-down" class="custom-icon" />
+    <van-icon style="margin-left: 20rpx;" bind:click="changeSort" slot="right-icon" name="exchange" class="custom-icon" />
+  </van-cell>
+  
+    
+  </van-cell-group>
+</view>
+<!-- 显示帖子内容 -->
+<view wx:for="{{posts}}" style="margin-top: 30rpx;">
+<van-cell-group  inset>
+  <van-cell  title="{{item.nickName}}" label= "{{item.ptime}}"  border="{{ false }}">
+  <van-image
+  slot="icon"
+  round
+  width="80rpx"
+  height="80rpx"
+  src="{{item.avatarUrl}}"
+  style="margin-right: 40rpx;margin-top: auto;"
+/>
+  </van-cell>
+  <van-field
+    value= "{{item.pdetail}}" 
+    type="textarea"
+    autosize
+    readonly
+    border="{{ false }}"
+    bind:click-input="showDetail"
+  />
+  <van-cell center>
+  <view slot="title">
+    <van-tag mark type="primary" size="medium" color= "{{tagscolor[item.ptag]}}">{{tagstitle[item.ptag]}}</van-tag>
+  </view>
+  <view class="functions">
+  <van-icon bind:click="showDetail" name="/images/comment.png" size="40rpx"/>
+  <text style="margin-right: 20rpx;">{{item.cnums}}</text>
+  <van-icon bind:click="changColor" name="/images/collect.png"  size="40rpx" />
+  <text style="margin-right: 20rpx;">{{item.conums}}</text>
+  <van-icon bind:click="changColor" name="/images/like.png"  size="40rpx"/>
+  <text >{{item.lnums}}</text>
+  </view>
+  </van-cell>
+  </van-cell-group>
+</view>
+
+<!-- 发帖弹窗 -->
+<van-popup
+  show="{{ showpopup }}"
+  round
+  position="bottom"
+  custom-style="height: 35%"
+  bind:close="onPopupClose"
+>
+<view style="margin-top: 80rpx;">
+  <van-grid  column-num="2" gutter="{{ 10 }}" border="false" icon-size="70rpx">
+  <van-grid-item 
+    link-type="navigateTo"
+    url="/pages/put/put?id=0&funct=0"
+    icon="/images/post.png" 
+    text="发布交流" />
+  <van-grid-item 
+    icon="/images/rate.png"
+    text="发布评分" 
+    link-type="navigateTo"
+    url="/pages/put/put?id=1&funct=0"
+   />
+  <!-- <van-grid-item icon="/images/activity.png" text="活动评分" />
+  <van-grid-item icon="/images/canteen.png" text="食堂评价" />
+  <van-grid-item icon="/images/course.png" text="选修课评价" /> -->
+</van-grid>
+</view>
+
+</van-popup>
+
+<van-action-sheet
+  show="{{ showBlocks }}"
+  actions="{{ actions }}"
+  bind:close="onCloseBlock"
+  bind:select="onSelectBlock"
+/>

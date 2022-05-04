@@ -1,0 +1,9 @@
+/* pages/put/put.wxss */
+Page{
+  background: #e3e3e1;
+  width: 100%;
+}
+
+.textarea{
+  min-height: 300rpx !important;
+}

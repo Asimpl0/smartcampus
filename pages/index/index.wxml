@@ -46,7 +46,7 @@
   bind:click="showMore"/>
   <van-grid-item 
   wx:if="{{more}}"
-  icon="/images/search.png/" 
+  icon="/images/search.png" 
   text="电话查询" 
   link-type="navigateTo"
   url="/pages/call/call"/>
@@ -58,10 +58,10 @@
   url="/pages/mainten/mainten" />
   <van-grid-item 
   wx:if="{{more}}"
-  icon="/images/search.png/" 
-  text="电话查询" 
+  icon="/images/activity.png" 
+  text="活动参与" 
   link-type="navigateTo"
-  url="/pages/call/call"/>
+  url="/pages/activity/activity"/>
   <van-grid-item 
   wx:if="{{more}}"
   icon="/images/mainten.png"

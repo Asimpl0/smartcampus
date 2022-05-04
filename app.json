@@ -1,14 +1,18 @@
 {
   "pages":["pages/index/index",
-    "pages/book/book",
+    "pages/put/put",
+    "pages/forum/forum",
     
+    "pages/book/book",
+    "pages/activity/activity",
     "pages/login/login",
     "pages/my/my",
     "pages/course/course",
     "pages/grade/grade",
     "pages/call/call",
-    "pages/mainten/mainten"
-   
+    "pages/mainten/mainten",
+    "pages/post/post"
+    
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -25,6 +29,12 @@
         "text": "首页",
         "iconPath": "images/index.png",
         "selectedIconPath": "images/index_select.png"
+      },
+      {
+        "pagePath": "pages/forum/forum",
+        "text": "论坛",
+        "iconPath": "images/forum.png",
+        "selectedIconPath": "images/forum_select.png"
       },
       {
         "pagePath": "pages/my/my",

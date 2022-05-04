@@ -1,0 +1,176 @@
+<!-- 搜索 -->
+<view wx:if="{{tabactive==0}}">
+  <van-search
+  model:value="{{ searchvalue }}"
+  placeholder="请输入搜索关键词"
+  use-action-slot
+  bind:search="onSearch"
+>
+  <view slot="action" bind:tap="onSearch">搜索</view>
+</van-search>
+
+<view style="margin-top: 15rpx;">
+  <view wx:for="{{activities}}">
+<view style="margin-top: 25rpx;">
+  <van-cell-group inset>
+  <van-cell center title-width="70%"title="{{item.aname}}" value="编号：{{item.aid}}" />
+  <van-cell center title-width="70%"title="地址：{{item.aaddress}}"  label="时间：{{item.abtime}}"  border="{{ false }}" >
+    <van-button bind:click="showPopup" data-activity= "{{item}}" icon="notes-o" type="info" size="small">参与</van-button>
+    </van-cell>
+</van-cell-group>
+</view>
+</view>
+</view>
+</view>
+
+<!-- 已参与 -->
+<view wx:if="{{tabactive==1}}">
+  <view style="margin-top: 25rpx;" wx:for="{{engagedactivities}}">
+  <van-cell-group inset>
+  <van-cell title-width="30%" title="活动号：{{item.eid}}" value="活动日期：{{item.abtime}}" />
+    <van-cell wx:if="{{item.erate !='未评价'}}" title="{{item.aname}}" value="{{item.erate}}" border="{{ false }}" />
+    <van-cell wx:if="{{item.erate =='未评价'}}" title="{{item.aname}}"  border="{{ false }}" >
+      <van-button bind:click="showRate" data-eid= "{{item.eid}}" icon="good-job-o" type="info" size="small">评分</van-button>
+    </van-cell>
+  </van-cell-group>
+</view>
+</view>
+<!-- 活动参与弹窗 -->
+<van-popup
+  show="{{ showEngage }}"
+  closeable
+  round
+  close-icon="close"
+  position="bottom"
+  custom-style="height: 60%"
+  bind:close="onClosePopup"
+>
+<!-- 弹窗标题 -->
+<text style="display: flex;justify-content: center;margin-top: 30rpx;margin-bottom: 25rpx; color: gray;">参与活动</text>
+<!-- 进度条 -->
+<van-cell-group inset>
+<van-steps 
+  steps="{{ steps }}"
+  active="{{ stepactive }}"
+  active-icon="success"
+  active-color="#38f" />
+</van-cell-group>
+<!-- 展示信息 -->
+<view style="margin-top: 30rpx;">
+<!-- 展示第一页 -->
+<view wx:if="{{stepactive==0}}">
+  <van-cell-group inset>
+  <van-field
+    value="{{ activityselected.aname}}"
+    label="活动名称"
+    required
+    readonly
+    border="{{ false }}"
+  />
+  <van-field
+    value="{{ activityselected.aaddress}}"
+    label="活动地点"
+    required
+    readonly
+    border="{{ false }}"
+  />
+  <van-field
+    value="{{ activityselected.abtime}}"
+    label="开始时间"
+    required
+    readonly
+    border="{{ false }}"
+  />
+  <van-field
+    value="{{ activityselected.atheme}}"
+    label="活动主题"
+    required
+    readonly
+    border="{{ false }}"
+  />
+</van-cell-group>
+<!-- 下一步 -->
+<view style="margin-top: 50rpx;">
+  <van-cell-group inset >
+    <van-button bind:click="nextstep" type="info" size="large">下一步</van-button>
+  </van-cell-group>
+</view>
+</view>
+<!-- 展示第二页 -->
+<view wx:if="{{stepactive==1}}">
+  <van-cell-group inset >
+    <van-field
+    value="{{ activityselected.aid}}"
+    label="活动编号"
+    required
+    readonly
+    border="{{ false }}"
+  />
+  <van-field
+    value="{{uid}}"
+    label="学号"
+    required
+    readonly
+    border="{{ false }}"
+  />
+  </van-cell-group>
+  <!-- 下一步 -->
+<view style="margin-top: 50rpx;">
+  <van-cell-group inset >
+    <van-button bind:click="submitEngage" type="info" size="large">提交</van-button>
+  </van-cell-group>
+</view>
+</view>
+<!-- 第三页 -->
+<view wx:if="{{stepactive==2}}">
+  <view style="margin-top: 50rpx;">
+  <van-cell-group inset >
+    <van-button bind:click="" type="info" size="large">提交</van-button>
+  </van-cell-group>
+</view>
+</view>
+
+</view>
+</van-popup>
+
+<!-- 评分 -->
+<van-popup 
+  show="{{ showrate }}"
+  round
+  closeable
+  position="bottom"
+  custom-style="height: 50%"
+  bind:close="onClose"
+  close-on-click-overlay = "{{false}}"
+>
+<text style="display: flex;justify-content: center;margin-top: 30rpx;color: gray;">活动评分</text>
+<view style="margin-top: 40rpx;">
+  <van-cell-group inset>
+  <van-cell size="large" title-width="20%" title="评分：" >
+    <van-rate
+  model:value="{{ ratevalue }}"
+  allow-half
+  size="50rpx"
+  gutter="15rpx"
+  void-icon="star"
+  void-color="#eee"
+  bind:change="onChange"
+/>
+  </van-cell>
+</van-cell-group>
+  <view style="margin-top: 40rpx;">
+    <van-cell-group inset>
+    <van-button bind:click="submitRate" type="info" size="large">提交评分</van-button>
+  </van-cell-group>
+  </view>
+
+
+</view>
+</van-popup>
+
+<!-- 标签栏 -->
+<van-tabbar active="{{ tabactive }}" placeholder bind:change="onTabChange">
+  <van-tabbar-item icon="search">搜索</van-tabbar-item>
+  <van-tabbar-item icon="sign">已参与</van-tabbar-item>
+</van-tabbar>
+

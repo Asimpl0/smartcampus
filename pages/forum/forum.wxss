@@ -1,0 +1,13 @@
+/* pages/forum/forum.wxss */
+Page{
+  background: #e3e3e1;
+  width: 100%;
+}
+
+.functions{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+

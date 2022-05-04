@@ -1,0 +1,64 @@
+<!-- 评分框 -->
+<view style="margin-top: 30rpx;" wx:if="{{type==1}}">
+  <van-cell-group inset>
+  <van-cell size="large" title-width="20%" title="评分：" >
+    <van-rate
+  model:value="{{ ratevalue }}"
+  allow-half
+  size="50rpx"
+  gutter="15rpx"
+  void-icon="star"
+  void-color="#eee"
+  bind:change="onChange"
+/>
+  </van-cell>
+</van-cell-group>
+</view>
+<!-- 发帖框 -->
+<view style="margin-top: 50rpx;">
+<van-cell-group inset>
+  <van-field
+    model:value="{{ post }}"
+    type="textarea"
+    placeholder="请输入帖子内容"
+    autosize
+    maxlength="100"
+    show-word-limit
+    border="{{ false }}"
+    input-class="textarea"
+  />
+</van-cell-group>
+</view>
+
+<!-- 显示评分选项 -->
+<view style="margin-top: 30rpx;" wx:if="{{type==1&&nochoice}}">
+<van-cell-group inset>
+  <van-cell wx:if="{{showchoice}}" bind:click="showPopup" title="选择评分内容" is-link  />
+  <van-cell wx:if="{{!showchoice}}" title="{{blockselect}}" value="{{itemselect}}" >
+    <van-icon slot="right-icon"  bind:click="showPopup"  name="replay" class="custom-icon" />
+  </van-cell>
+</van-cell-group>
+</view>
+
+<view style="margin-top: 80rpx;">
+<van-cell-group inset>
+  <van-button bind:click="onPost" type="info" size="large">发布</van-button>
+</van-cell-group>
+</view>
+
+<!-- 评分选择弹窗 -->
+<van-popup
+  show="{{ showpopup }}"
+  position="bottom"
+  custom-style="height: 55%"
+  bind:close="onClose"
+>
+<van-tree-select
+  items="{{ items }}"
+  main-active-index="{{ mainActiveIndex }}"
+  active-id="{{ activeId }}"
+  bind:click-nav="onClickNav"
+  bind:click-item="onClickItem"
+/>
+
+</van-popup>

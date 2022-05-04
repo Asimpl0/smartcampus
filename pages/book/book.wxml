@@ -183,7 +183,7 @@
 </view>
 </van-popup>
 
-<view style="margin-top: 30rpx; margin-bottom: 200rpx;" wx:if="{{!active}}" >
+<view style="margin-top: 30rpx; margin-bottom: 300rpx;" wx:if="{{!active}}" >
 <view style="margin-top: 25rpx;" wx:for="{{borrowed}}">
   <van-cell-group inset>
   <van-cell title-width="30%" title="单号：{{item.boid}}" value="借书日期：{{item.bsdate}}" />

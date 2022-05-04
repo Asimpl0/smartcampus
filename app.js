@@ -14,7 +14,7 @@ App({
         }
       }),
       this.globalData = {
-        // url: "http://39.105.188.70:8080/api/",
+        //url: "http://39.105.188.70:8080/api/",
         url: "http://127.0.0.1:8080/api/",
         notifications: [''],
         hasUserInfo: wx.getStorageSync('hasUserInfo'),

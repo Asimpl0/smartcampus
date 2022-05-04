@@ -1,0 +1,14 @@
+{
+  "usingComponents": {
+    "van-cell": "@vant/weapp/cell/index",
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-field": "@vant/weapp/field/index",
+    "van-button": "@vant/weapp/button/index",
+    "van-popup": "@vant/weapp/popup/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "van-tree-select": "@vant/weapp/tree-select/index",
+    "van-rate": "@vant/weapp/rate/index"
+  },
+  "navigationBarBackgroundColor": "#e3e3e1",
+  "navigationBarTitleText": "发布帖子"
+}
