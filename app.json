@@ -1,8 +1,9 @@
 {
-  "pages":["pages/index/index",
+  "pages":[
+    "pages/index/index",
     "pages/put/put",
     "pages/forum/forum",
-    
+    "pages/post/post",
     "pages/book/book",
     "pages/activity/activity",
     "pages/login/login",
@@ -10,8 +11,8 @@
     "pages/course/course",
     "pages/grade/grade",
     "pages/call/call",
-    "pages/mainten/mainten",
-    "pages/post/post"
+    "pages/mainten/mainten"
+    
     
   ],
   "window":{

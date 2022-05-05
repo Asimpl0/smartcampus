@@ -17,10 +17,33 @@
 </view>
   </van-cell>
   <van-cell title="" value="" />
+</van-cell-group>
+
+<!-- 展示发帖情况 -->
+<view style="margin-top: 30rpx;">
+<van-cell-group inset>
+  <van-grid  column-num="3" border="{{ false }}">
+  <van-grid-item 
+  bind:click="toPost"
+  icon="orders-o" 
+  text="我的帖子" />
+  <van-grid-item 
+  bind:click="toCollect"
+  icon="star-o"
+  text="我的收藏" />
+  <van-grid-item icon="good-job-o" text="收到：{{likes}}" />
+</van-grid>
+</van-cell-group>
+</view>
+
+
+<view style="margin-top: 40rpx;">
+  <van-cell-group inset>
   <van-cell wx:if="{{!hasLogin}}" size="large" icon="friends" title="统一身份认证" is-link link-type="navigateTo"
   url="/pages/login/login" />
   <van-cell wx:if="{{hasLogin}}" size="large" icon="clear" title="取消身份绑定" is-link bind:click="clearLogin" />
 </van-cell-group>
+</view>
 <view>
   <van-action-sheet
   show="{{ show }}"

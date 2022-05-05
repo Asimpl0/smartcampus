@@ -9,7 +9,7 @@ Page({
     radio: '1',
     userInfo: '', //用户信息
     iconColor: "gray",
-    showpopup: true, //是否展示发帖弹窗
+    showpopup: false, //是否展示发帖弹窗
     showBlocks: false,
     actions: [
       {
@@ -58,10 +58,17 @@ Page({
       '活动版块',
       '选修课版块',
       '食堂版块',
-    ]
+    ],
+    liked:true, //是否显示可点赞
+    collected:true, //是否显示可收藏
+    pid:0, //点击的帖子id
+    search:'', //搜索的内容
+    forumid:2, //请求我的帖子收藏还是所有
+    ranksorts:["高分推荐", "热度推荐"],
+    ranksort:0,  //排行方式
+    ranks:[], //排行榜榜单
   },
-  //请求帖子
-  getPost() {
+  getRank(){
     var header;
     header = {
       'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
@@ -73,7 +80,117 @@ Page({
       header.Cookie = cookie;
     }
     //console.log(cookie)
-    var URL = app.globalData.url + "forum?block=" + this.data.block + "&sort=" + this.data.sort;
+    var URL = app.globalData.url + "forum?funct=3&block=" + this.data.block + "&sort=" + this.data.ranksort;
+    wx.request({
+      url: URL,
+      method: "GET",
+      header: header,
+      success: (res) => {
+        console.log(res.data)
+        this.setData({
+          ranks:res.data
+        })
+      }
+    })
+  },
+  changeRank(){
+    this.setData({
+      ranksort: (this.data.ranksort + 1) % 2
+    })
+    this.getRank()
+  },
+  uncollectPost(event){
+    this.setData({
+      collected:true,
+      pid: event.currentTarget.dataset.pid
+    })
+    this.doCollect(-1)
+    this.onShow()
+  },
+  collectPost(event){
+    this.setData({
+      collected:false,
+      pid: event.currentTarget.dataset.pid
+    })
+    this.doCollect(1)
+    this.onShow()
+  },
+  doCollect(e){
+    var header;
+    header = {
+      'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+    };
+    //从本地读取之前获得的cookie
+    var cookie = wx.getStorageSync('cookieKey'); //取出Cookie
+    //若存在cookie，加入请求
+    if (cookie) {
+      header.Cookie = cookie;
+    }
+    //console.log(cookie)
+    var URL = app.globalData.url + "forum?funct=2&pid=" + this.data.pid + "&do=" + e;
+    wx.request({
+      url: URL,
+      method: "GET",
+      header: header,
+      success: (res) => {
+        console.log(res.data)
+        this.onShow()
+      }
+    })
+  },
+  unlikePost(event){
+    this.setData({
+      liked:true,
+      pid: event.currentTarget.dataset.pid
+    })
+    this.doLike(-1)
+  },
+  likePost(event){
+    this.setData({
+      liked:false,
+      pid: event.currentTarget.dataset.pid
+    })
+    this.doLike(1)
+  },
+  doLike(e){
+    //给当前帖子的点赞数加减一
+    var header;
+    header = {
+      'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+    };
+    //从本地读取之前获得的cookie
+    var cookie = wx.getStorageSync('cookieKey'); //取出Cookie
+    //若存在cookie，加入请求
+    if (cookie) {
+      header.Cookie = cookie;
+    }
+    //console.log(cookie)
+    var URL = app.globalData.url + "forum?funct=1&pid=" + this.data.pid + "&do=" + e;
+    wx.request({
+      url: URL,
+      method: "GET",
+      header: header,
+      success: (res) => {
+        console.log(res.data)
+        this.onShow()
+      }
+    })
+  },
+  //请求帖子
+  getPost(e) {
+    var header;
+    header = {
+      'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+    };
+    //从本地读取之前获得的cookie
+    var cookie = wx.getStorageSync('cookieKey'); //取出Cookie
+    //若存在cookie，加入请求
+    if (cookie) {
+      header.Cookie = cookie;
+    }
+    //console.log(cookie)
+    var URL = app.globalData.url + "forum?funct=0&block=" + this.data.block + 
+    "&sort=" + this.data.sort+"&add="+ this.data.forumid + "&search=" + this.data.search;
     wx.request({
       url: URL,
       method: "GET",
@@ -109,12 +226,14 @@ Page({
       blockname: event.detail.name,
       block: event.detail.className
     })
+    if(event.detail.className==4||event.detail.className==5)
+      this.getRank()
     this.getPost()
     console.log(event.detail);
   },
-  showDetail() {
+  showDetail(event) {
     wx.navigateTo({
-      url: '/pages/post/post',
+      url: '/pages/post/post?pid=' + event.currentTarget.dataset.pid,
     })
   },
 
@@ -134,7 +253,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    // this.getPost()
+    
   },
 
   /**
@@ -148,7 +267,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    this.setData({
+      forumid:app.globalData.forumid
+    })
     this.getPost()
+    this.setData({
+      showpopup: false,
+      search:''
+    })
   },
 
   /**

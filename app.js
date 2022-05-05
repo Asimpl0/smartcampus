@@ -19,7 +19,8 @@ App({
         notifications: [''],
         hasUserInfo: wx.getStorageSync('hasUserInfo'),
         hasLogin: wx.getStorageSync('hasLogin'),
-        uid:wx.getStorageSync('uid')
+        uid:wx.getStorageSync('uid'),
+        forumid:2 //从我的跳转到forum的参数
       }
     console.log(this.globalData.hasUserInfo)
   }

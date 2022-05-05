@@ -1,2 +1,101 @@
-<!--pages/post/post.wxml-->
-<text>pages/post/post.wxml</text>
+<!-- 显示帖子内容 -->
+<view style="margin-top: 30rpx;">
+<van-cell-group  inset>
+  <van-cell  title="{{item.nickName}}" label= "{{item.ptime}}"  border="{{ false }}">
+  <van-image
+  slot="icon"
+  round
+  width="80rpx"
+  height="80rpx"
+  src="{{item.avatarUrl}}"
+  style="margin-right: 40rpx;margin-top: auto;"
+/>
+  </van-cell>
+  <van-cell icon="award-o" wx:if="{{item.ismark==1}}" title = "{{item.name}}">
+    <van-rate allow-half color="#2794f6" void-color="#eee" readonly value="{{ item.mark }}" bind:change="onChange" />
+  </van-cell>
+  <van-field
+    value= "{{item.pdetail}}" 
+    type="textarea"
+    autosize
+    size="large"
+    readonly
+    border="{{ false }}"
+    data-pid="{{item.pid}}"
+    bind:click-input="showDetail"
+  />
+  </van-cell-group>
+
+  <view style="margin-top: 20rpx;">
+  <van-cell-group inset title="评论：">
+  </van-cell-group>
+  </view>
+  <view style="margin-top: 25rpx;" wx:for="{{comments}}">
+  <van-cell-group inset>
+    <van-cell  title="{{item.nickName}}" label= "{{item.ctime}}"  border="{{ false }}">
+  <van-image
+  slot="icon"
+  round
+  width="80rpx"
+  height="80rpx"
+  src="{{item.avatarUrl}}"
+  style="margin-right: 40rpx;margin-top: auto;"
+/>
+  </van-cell>
+  <van-field
+    value= "{{item.cdetail}}" 
+    type="textarea"
+    autosize
+    readonly
+    border="{{ false }}"
+  />
+  </van-cell-group>
+  </view>
+</view>
+
+<!-- 底栏 -->
+<van-popup
+  show="{{ showtab }}"
+  overlay="{{false}}"
+  position="bottom"
+  custom-style="height: auto"
+  bind:close="onClose"
+>
+<van-cell-group >
+  <van-cell center title="发布评论" >
+    <van-icon slot="icon" bind:click="showComment" name="edit" class="custom-icon" />
+  <view class="functions">
+  <van-icon  wx:if="{{collected}}" data-pid="{{item.pid}}" bind:click="collectPost" name="/images/collect.png"  size="40rpx" />
+  <van-icon wx:if="{{!collected}}"data-pid="{{item.pid}}" bind:click="uncollectPost" name="/images/collected.png"  size="40rpx" />
+  <text style="margin-left: 10rpx; margin-right: 40rpx;">{{item.conums}}</text>
+  <van-icon wx:if="{{liked}}" data-pid="{{item.pid}}" bind:click="likePost" name="/images/like.png"  size="40rpx"/>
+  <van-icon wx:if="{{!liked}}" data-pid="{{item.pid}}" bind:click="unlikePost" name="/images/liked.png"  size="40rpx"/>
+  <text style="margin-left: 10rpx; margin-right: 10rpx;">{{item.lnums}}</text>
+  </view>
+  </van-cell>
+</van-cell-group>
+</van-popup>
+
+<!-- 评论发布弹窗 -->
+<van-popup
+  show="{{ showcomment }}"
+  position="bottom"
+  round
+  custom-style="height: 50%"
+  bind:close="onClose"
+>
+<view class="button">
+  <van-button round bind:click="onComment" type="primary" size="small">发布</van-button>
+</view>
+<van-cell-group inset>
+  <van-field
+    model:value="{{ comment }}"
+    type="textarea"
+    placeholder="请输入评论"
+    autosize
+    border="{{ false }}"
+    input-class="textarea"
+  />
+</van-cell-group>
+
+</van-popup>

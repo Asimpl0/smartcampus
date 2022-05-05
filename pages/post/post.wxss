@@ -1,1 +1,16 @@
 /* pages/post/post.wxss */
+Page{
+  background: #e3e3e1;
+  width: 100%;
+}
+
+.button{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 40rpx;
+  margin-right: 40rpx;
+  margin-bottom: 50rpx;
+}
+.textarea{
+  min-height: 200rpx !important;
+}

@@ -12,7 +12,44 @@ Page({
     ],
     hasUserInfo: false,
     userInfo:'',
-    hasLogin:false
+    hasLogin:false,
+    likes:0, //点赞数
+  },
+  toPost(){
+    app.globalData.forumid = 0
+    wx.switchTab({
+      url: '/pages/forum/forum',
+    })
+  },
+  toCollect(){
+    app.globalData.forumid = 1
+    wx.switchTab({
+      url: '/pages/forum/forum',
+    })
+  },
+  getLikes(){
+    var header;
+    header = {
+      'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+    };
+    //从本地读取之前获得的cookie
+    var cookie = wx.getStorageSync('cookieKey'); //取出Cookie
+    //若存在cookie，加入请求
+    if (cookie) {
+      header.Cookie = cookie;
+    }
+    //console.log(cookie)
+    var URL = app.globalData.url + "forum?funct=4";
+    wx.request({
+      url: URL,
+      method: "GET",
+      header: header,
+      success: (res) => {
+        this.setData({
+          likes: res.data
+        })
+      }
+    })
   },
   clearLogin(){
     this.setData({
@@ -67,6 +104,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.getLikes()
     this.setData({
       hasUserInfo: app.globalData.hasUserInfo,
       userInfo: wx.getStorageSync('userInfo'),
@@ -89,6 +127,7 @@ Page({
     this.setData({
       hasLogin:app.globalData.hasLogin
     })
+    
   },
 
   /**
