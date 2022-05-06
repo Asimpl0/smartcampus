@@ -67,6 +67,59 @@ Page({
     ranksorts:["高分推荐", "热度推荐"],
     ranksort:0,  //排行方式
     ranks:[], //排行榜榜单
+    ranktitle: ["选修课排行榜","食堂排行榜"], 
+    showitem:false, //是否展示具体物品
+    item:'', //具体物品
+    activeall:[], //折叠栏默认项
+    alltitles:["全部选修课","全部食堂"],
+    activerank:[],
+    allitems:[], //所有食堂或者选修课
+  },
+  onChangeAll(event) {
+    this.setData({
+      activeall: event.detail,
+    });
+    this.getAll()
+  },
+  onChangeRank(event) {
+    this.setData({
+      activerank: event.detail,
+    });
+  },
+  //获得所有食堂或选修课
+  getAll(){
+    var header;
+    header = {
+      'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+    };
+    //从本地读取之前获得的cookie
+    var cookie = wx.getStorageSync('cookieKey'); //取出Cookie
+    //若存在cookie，加入请求
+    if (cookie) {
+      header.Cookie = cookie;
+    }
+    //console.log(cookie)
+    var URL = app.globalData.url + "forum?funct=5&block=" + this.data.block;
+    wx.request({
+      url: URL,
+      method: "GET",
+      header: header,
+      success: (res) => {
+        console.log(res.data)
+        this.setData({
+          allitems:res.data
+        })
+      }
+    })
+  },
+  showItem(event){
+    this.setData({
+      search:event.currentTarget.dataset.item,
+      item:event.currentTarget.dataset.item,
+      showitem:true,
+      block:0
+    })
+    this.getPost()
   },
   getRank(){
     var header;
@@ -198,7 +251,8 @@ Page({
       success: (res) => {
         console.log(res.data)
         this.setData({
-          posts: res.data
+          posts: res.data,
+          // search:''
         })
       }
     })
@@ -213,7 +267,7 @@ Page({
   //显示板块选择弹窗
   changeBlock() {
     this.setData({
-      showBlocks: true
+      showBlocks: true,
     })
   },
   onCloseBlock() {
@@ -224,7 +278,9 @@ Page({
   onSelectBlock(event) {
     this.setData({
       blockname: event.detail.name,
-      block: event.detail.className
+      block: event.detail.className,
+      showitem: false,
+      search:''
     })
     if(event.detail.className==4||event.detail.className==5)
       this.getRank()
@@ -271,6 +327,7 @@ Page({
       forumid:app.globalData.forumid
     })
     this.getPost()
+    
     this.setData({
       showpopup: false,
       search:''

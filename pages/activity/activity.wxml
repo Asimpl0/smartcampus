@@ -8,7 +8,24 @@
 >
   <view slot="action" bind:tap="onSearch">搜索</view>
 </van-search>
-
+<view style="margin-top: 30rpx;" >
+  <van-cell-group inset title = "与您兴趣相同的用户借阅了：">
+</van-cell-group>
+</view>
+<view wx:for="{{UserRecommendList}}">
+<view style="margin-top: 30rpx;">
+  <van-cell-group inset>
+  <van-cell center title-width="70%"title="{{item.aname}}" value="编号：{{item.aid}}" />
+  <van-cell center title-width="70%"title="地址：{{item.aaddress}}"  label="时间：{{item.abtime}}"  border="{{ false }}" >
+    <van-button bind:click="showPopup" data-activity= "{{item}}" icon="notes-o" type="info" size="small">参与</van-button>
+    </van-cell>
+</van-cell-group>
+</view>
+</view>
+<view style="margin-top: 30rpx;" >
+  <van-cell-group inset title = "全部活动：">
+</van-cell-group>
+</view>
 <view style="margin-top: 15rpx;">
   <view wx:for="{{activities}}">
 <view style="margin-top: 25rpx;">
@@ -124,9 +141,21 @@
 <!-- 第三页 -->
 <view wx:if="{{stepactive==2}}">
   <view style="margin-top: 50rpx;">
+    <view wx:for="{{ThemeRecommendList}}">
+<view style="margin-top: 25rpx;">
+  <van-cell-group inset>
+  <van-cell center title-width="70%"title="{{item.aname}}" value="编号：{{item.aid}}" />
+  <van-cell center title-width="70%"title="地址：{{item.aaddress}}"  label="时间：{{item.abtime}}"  border="{{ false }}" >
+    <van-button bind:click="showPopup" data-activity= "{{item}}" icon="notes-o" type="info" size="small">参与</van-button>
+    </van-cell>
+</van-cell-group>
+</view>
+</view>
+<view style="margin-top: 50rpx;">
   <van-cell-group inset >
-    <van-button bind:click="" type="info" size="large">提交</van-button>
+    <van-button bind:click="onClosePopup" type="info" size="large">完成</van-button>
   </van-cell-group>
+</view>
 </view>
 </view>
 

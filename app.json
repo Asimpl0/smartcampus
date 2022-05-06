@@ -13,7 +13,6 @@
     "pages/call/call",
     "pages/mainten/mainten"
     
-    
   ],
   "window":{
     "backgroundTextStyle":"light",

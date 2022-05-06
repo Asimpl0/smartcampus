@@ -46,6 +46,12 @@
   bind:click="showMore"/>
   <van-grid-item 
   wx:if="{{more}}"
+  icon="/images/activity.png" 
+  text="活动参与" 
+  link-type="navigateTo"
+  url="/pages/activity/activity"/>
+  <van-grid-item 
+  wx:if="{{more}}"
   icon="/images/search.png" 
   text="电话查询" 
   link-type="navigateTo"
@@ -58,16 +64,10 @@
   url="/pages/mainten/mainten" />
   <van-grid-item 
   wx:if="{{more}}"
-  icon="/images/activity.png" 
-  text="活动参与" 
-  link-type="navigateTo"
-  url="/pages/activity/activity"/>
-  <van-grid-item 
-  wx:if="{{more}}"
-  icon="/images/mainten.png"
-  text="维修申报"
-  link-type="navigateTo"
-  url="/pages/mainten/mainten" />
+  icon="/images/forum_i.png"
+  text="校园社区"
+  link-type="switchTab"
+  url="/pages/forum/forum" />
   <van-grid-item 
   wx:if="{{more}}"
   icon="/images/more.png" 

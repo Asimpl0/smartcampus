@@ -39,6 +39,16 @@
   </van-cell>
 </van-cell-group>
 </view>
+<!-- 交流贴版块选择 -->
+<view style="margin-top: 30rpx;" wx:if="{{type==0}}">
+<van-cell-group inset>
+  <van-cell wx:if="{{showchoice}}" bind:click="showBlocks" title="选择发帖版块" is-link  />
+  <van-cell wx:if="{{!showchoice}}" title="{{blockname}}" >
+    <van-icon slot="right-icon"  bind:click="showBlocks"  name="replay" class="custom-icon" />
+  </van-cell>
+</van-cell-group>
+</view>
+
 
 <view style="margin-top: 80rpx;">
 <van-cell-group inset>
@@ -62,3 +72,10 @@
 />
 
 </van-popup>
+<!-- 版块选择 -->
+<van-action-sheet
+  show="{{ showblocks }}"
+  actions="{{ actions }}"
+  bind:close="onCloseBlock"
+  bind:select="onSelectBlock"
+/>

@@ -8,19 +8,42 @@ Page({
   data: {
     post: '', //发帖内容
     type: 0, //发帖类型
-    showchoice:true, //显示评分cell
-    showpopup:false, //显示评分选项弹窗
+    showchoice: true, //显示评分cell
+    showpopup: false, //显示评分选项弹窗
     mainActiveIndex: 0, //左侧选中项的索引
     activeId: null, //右侧选中项的 id，支持传入数组
-    items:[],
-    itemselect:'', //选中要评分的选项的名称
+    items: [],
+    itemselect: '', //选中要评分的选项的名称
     idselect: 0, //选中要评分的选项的id
-    blockselect:'', //选中的版块
+    blockselect: '', //选中的版块
     blockid: 0, //选中的版块的id
-    ratevalue:'', //评分值
-    nochoice:true,//是否显示项目选择
+    ratevalue: '', //评分值
+    nochoice: true, //是否显示项目选择
+    showblocks: false, //交流贴选择版块
+    actions: [{
+        name: '交流版块',
+        className: 0
+      },
+      {
+        name: '图书版块',
+        className: 1
+      },
+      {
+        name: '活动版块',
+        className: 2
+      },
+      {
+        name: '选修课版块',
+        className: 3
+      },
+      {
+        name: '食堂版块',
+        className: 4
+      },
+    ],
+    blockname: '全部版块'
   },
-  getChoice(){
+  getChoice() {
     var header;
     header = {
       'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
@@ -46,36 +69,58 @@ Page({
       }
     })
   },
-  onClickNav({ detail = {} }) {
+  onClickNav({
+    detail = {}
+  }) {
     this.setData({
       mainActiveIndex: detail.index || 0,
     });
     console.log(detail.index)
   },
 
-  onClickItem({ detail = {} }) {
+  onClickItem({
+    detail = {}
+  }) {
     const activeId = this.data.activeId === detail.id ? null : detail.id;
-    this.setData({ 
+    this.setData({
       activeId,
-      itemselect:detail.text,
-      idselect:activeId,
-      blockselect:this.data.items[this.data.mainActiveIndex].text,
-      blockid:this.data.mainActiveIndex
-     });
-     this.onClose()
+      itemselect: detail.text,
+      idselect: activeId,
+      blockselect: this.data.items[this.data.mainActiveIndex].text,
+      blockid: this.data.mainActiveIndex
+    });
+    this.onClose()
     console.log(this.data.activeId)
   },
   showPopup() {
-    this.setData({ showpopup: true });
+    this.setData({
+      showpopup: true
+    });
   },
-
+  showBlocks() {
+    this.setData({
+      showblocks: true
+    })
+  },
+  onCloseBlock() {
+    this.setData({
+      showblocks: false,
+      showchoice: false
+    })
+  },
+  onSelectBlock(event) {
+    this.setData({
+      blockname: event.detail.name,
+      blockid: event.detail.className,
+    })
+  },
   onClose() {
-    this.setData({ 
+    this.setData({
       showpopup: false,
-      showchoice:false
-     });
+      showchoice: false
+    });
   },
-  showChoice(){
+  showChoice() {
     this.setData({
       showchoice: true
     })
@@ -102,7 +147,7 @@ Page({
       data: {
         'type': this.data.type,
         'post': this.data.post,
-        'rate': this.data.ratevalue*2,
+        'rate': this.data.ratevalue * 2,
         'blockid': parseInt(this.data.blockid) + 1,
         'itemid': this.data.idselect
       },
@@ -124,11 +169,11 @@ Page({
       type: options.id,
     })
     console.log(options.blockid)
-    if(options.funct==1){
+    if (options.funct == 1) {
       this.setData({
-        nochoice:false,
+        nochoice: false,
         blockid: options.blockid,
-        idselect:options.itemid
+        idselect: options.itemid
       })
     }
   },

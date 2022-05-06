@@ -21,66 +21,66 @@
   
   </van-cell-group>
 </view>
-<!-- 选修课版块展示榜单 -->
-<view style="margin-top: 30rpx;" wx:if="{{block==4}}">
+<!-- 展示具体条目 -->
+<view style="margin-top: 40rpx;" wx:if="{{showitem}}">
+<van-cell-group inset>
+<van-cell title="{{item}}">
+  <van-icon style="margin-right: 50rpx;" slot="icon" size="50rpx" name="/images/item.png" class="custom-icon" />
+</van-cell>
+</van-cell-group>
+</view>
+<!-- 选修课食堂版块展示榜单 -->
+<view style="margin-top: 30rpx;" wx:if="{{block==5||block == 4}}">
   <van-cell-group inset>
-  <van-cell center title="食堂排行榜" value="{{ranksorts[ranksort]}}">
+    <van-collapse value="{{ activerank }}" bind:change="onChangeRank">
+  <van-collapse-item title="排行榜" name="1">
+    <van-cell  center title="{{ranktitle[block-4]}}" value="{{ranksorts[ranksort]}}">
     <van-icon style="margin-right: 50rpx;" slot="icon" size="50rpx" name="/images/rank.png" class="custom-icon" />
     <van-icon style="margin-left: 60rpx; margin-right: 10rpx;" bind:click="changeRank" slot="right-icon" size="30rpx" name="exchange" class="custom-icon" />
   </van-cell>
-  <van-field
-    value="{{ ranks[0] }}"
+  <van-cell
+    title="{{ ranks[0].text }}"
+    value="{{ ranks[0].num}}"
+    bind:click="showItem" data-item="{{ranks[0].text}}" 
     border="{{ false }}"
-    readonly
     size="large"
-  ><van-icon style="margin-right: 60rpx;" slot="left-icon" size="50rpx" name="/images/first.png" class="custom-icon" />
-  </van-field>
-  <van-field
-    value="{{ ranks[1] }}"
-    border="{{ false }}"
-    readonly
-    size="large"
-  ><van-icon style="margin-right: 60rpx;" slot="left-icon" size="50rpx" name="/images/second.png" class="custom-icon" />
-  </van-field>
-  <van-field
-    value="{{ ranks[2] }}"
-    border="{{ false }}"
-    readonly
-    size="large"
-  ><van-icon style="margin-right: 60rpx;" slot="left-icon" size="50rpx" name="/images/third.png" class="custom-icon" />
-  </van-field>
-</van-cell-group>
-</view>
-<!-- 食堂版块展示榜单 -->
-<view style="margin-top: 30rpx;" wx:if="{{block==5}}">
-  <van-cell-group inset>
-  <van-cell center title="食堂排行榜" value="{{ranksorts[ranksort]}}">
-    <van-icon style="margin-right: 50rpx;" slot="icon" size="50rpx" name="/images/rank.png" class="custom-icon" />
-    <van-icon style="margin-left: 60rpx; margin-right: 10rpx;" bind:click="changeRank" slot="right-icon" size="30rpx" name="exchange" class="custom-icon" />
+  ><van-icon style="margin-right: 60rpx;" slot="icon" size="50rpx" name="/images/first.png" class="custom-icon" />
   </van-cell>
-  <van-field
-    value="{{ ranks[0] }}"
+  <van-cell
+    title="{{ ranks[1].text }}"
+    value="{{ ranks[1].num}}"
+    bind:click="showItem" data-item="{{ranks[1].text}}" 
     border="{{ false }}"
-    readonly
     size="large"
-  ><van-icon style="margin-right: 60rpx;" slot="left-icon" size="50rpx" name="/images/first.png" class="custom-icon" />
-  </van-field>
-  <van-field
-    value="{{ ranks[1] }}"
+  ><van-icon style="margin-right: 60rpx;" slot="icon" size="50rpx" name="/images/second.png" class="custom-icon" />
+  </van-cell>
+  <van-cell
+    title="{{ ranks[2].text }}"
+    value="{{ ranks[2].num}}"
+    bind:click="showItem" data-item="{{ranks[2].text}}" 
     border="{{ false }}"
-    readonly
     size="large"
-  ><van-icon style="margin-right: 60rpx;" slot="left-icon" size="50rpx" name="/images/second.png" class="custom-icon" />
-  </van-field>
-  <van-field
-    value="{{ ranks[2] }}"
-    border="{{ false }}"
-    readonly
-    size="large"
-  ><van-icon style="margin-right: 60rpx;" slot="left-icon" size="50rpx" name="/images/third.png" class="custom-icon" />
-  </van-field>
+  ><van-icon style="margin-right: 60rpx;" slot="icon" size="50rpx" name="/images/third.png" class="custom-icon" />
+  </van-cell>
+  </van-collapse-item>
+</van-collapse>
+  
 </van-cell-group>
 </view>
+<!-- 食堂和选修课全部内容 -->
+<view style="margin-top: 30rpx;" wx:if="{{block==5||block == 4}}">
+<van-cell-group inset>
+  <van-collapse value="{{ activeall }}" bind:change="onChangeAll">
+  <van-collapse-item title="{{ alltitles[block-4]}}" name="1">
+    <view wx:for="{{allitems}}">
+    <van-cell bind:click="showItem" data-item="{{item}}" title="{{item}}">
+    </van-cell>
+    </view>
+  </van-collapse-item>
+</van-collapse>
+</van-cell-group>
+</view>
+
 <!-- 显示帖子内容 -->
 <view wx:for="{{posts}}" style="margin-top: 30rpx;">
 <van-cell-group  inset>
@@ -94,7 +94,7 @@
   style="margin-right: 40rpx;margin-top: auto;"
 />
   </van-cell>
-  <van-cell icon="award-o" wx:if="{{item.ismark==1}}" title = "{{item.name}}">
+  <van-cell bind:click="showItem" data-item="{{item.name}}" icon="award-o" wx:if="{{item.ismark==1}}" title = "{{item.name}}">
     <van-rate allow-half color="#2794f6" void-color="#eee" readonly value="{{ item.mark }}" bind:change="onChange" />
   </van-cell>
   <van-field

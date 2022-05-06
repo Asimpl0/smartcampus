@@ -30,6 +30,8 @@ Page({
     showrate:false, //是否展示评分弹窗
     rateeid:'',//待评价的活动id
     ratevalue:0, //评分
+    UserRecommendList:[],//基于用户的推荐列表
+    ThemeRecommendList:[],//基于主题的推荐列表
   },
   getRecommendbasedUser(){
     var header;
@@ -50,6 +52,35 @@ Page({
       method: "GET",
       header: header,
       success: (res) => {
+        this.setData({
+          UserRecommendList:res.data
+        })
+        console.log(res.data)
+      }
+    })
+  },
+  getRecommendbasedTheme(){
+    var header;
+    header = {
+      'content-type': 'application/x-www-form-urlencoded',
+    };
+    //从本地读取之前获得的cookie
+    var cookie = wx.getStorageSync('cookieKey'); //取出Cookie
+    //若存在cookie，加入请求
+    if (cookie) {
+      header.Cookie = cookie;
+    }
+    //console.log(cookie)
+    var URL = app.globalData.url + "activity" + "?funct=6&aid=" + this.data.activityselected.aid;
+    //console.log("login")
+    wx.request({
+      url: URL,
+      method: "GET",
+      header: header,
+      success: (res) => {
+        this.setData({
+          ThemeRecommendList:res.data
+        })
         console.log(res.data)
       }
     })
@@ -196,6 +227,7 @@ Page({
       showEngage: true,
       activityselected: event.currentTarget.dataset.activity
     })
+    this.getRecommendbasedTheme()
   },
   onClosePopup(){
     this.setData({
