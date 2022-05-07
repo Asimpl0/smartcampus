@@ -1,6 +1,10 @@
 // pages/login/login.js
 var app = getApp();
 import Toast from '@vant/weapp/toast/toast';
+// 导入包
+import WxmpRsa from 'wxmp-rsa'
+// 实例化rsa
+const rsa = new WxmpRsa()
 Page({
 
   /**
@@ -9,11 +13,13 @@ Page({
   data: {
     username: '',
     password: '',
+    publicKey:'',
+    privateKey:''
   },
   onClickIcon(){
     Toast('用户名为学号');
   },
-  
+
 // 登录
 login(e){
 
@@ -21,6 +27,7 @@ login(e){
     Toast('请输入完整');
     return
   }
+
   wx.setStorageSync('uid', this.data.username)
   //开始验证登录是否正确
   var header;
@@ -33,14 +40,18 @@ login(e){
   if (cookie) {
     header.Cookie = cookie;
   }
-  //console.log(cookie)
-  var URL = app.globalData.url +
-    "login" + "?uid=" + this.data.username + "&passwd=" + this.data.password;
-  //console.log("login")
+  
+  // 设置公钥
+rsa.setPublicKey(this.data.publicKey)
+  var URL = app.globalData.url + "login" 
   wx.request({
     url: URL,
     method: "GET",
     header: header,
+    data:{
+      uid: rsa.encryptLong(this.data.username),
+      passwd: rsa.encryptLong(this.data.password)
+    },
     success(res) {
       //如果服务器传回了cookie，保存到本地
       if (res.header['Set-Cookie']) {
@@ -67,7 +78,9 @@ login(e){
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    this.setData({
+      publicKey:app.globalData.publicKey
+    })
   },
 
   /**
