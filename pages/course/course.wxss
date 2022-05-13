@@ -1,5 +1,7 @@
 /**index.wxss**/
-
+Page{
+  background: #f7f8fa;
+}
 .flex-item {
   width: 95rpx;
   height: 100px;

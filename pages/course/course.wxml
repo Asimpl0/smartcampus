@@ -1,5 +1,6 @@
 <!--index.wxml-->
-<view class="top">
+<view wx:if="{{active==0}}">
+  <view class="top">
   <view wx:for="{{['一','二','三','四','五','六','日']}}" class="top-text">周{{item}}</view>
 </view>
 <scroll-view scroll-y="true" class="scroll">
@@ -25,3 +26,32 @@
     </view>
   </view>
 </scroll-view>
+</view>
+
+<view style="margin-top: 30rpx;margin-bottom: 200rpx;" wx:if="{{active==1}}">
+<van-cell-group inset>
+  <van-search
+  model:value="{{ search }}"
+  placeholder="请输入搜索关键词"
+  show-action
+  bind:search="onSearch"
+  bind:cancel="onCancel"
+/>
+</van-cell-group>
+
+<view style="margin-top: 30rpx;" wx:for="{{searchCourses}}" wx:for-item="course">
+<van-cell-group inset>
+<van-cell size="large" title="{{course.cname}} ({{course.type}})" value="学分：{{course.credit}}">
+</van-cell>
+<view wx:for="{{course.teachers}}" >
+<van-cell title="任课教师：{{item.tname}}" value="地点：{{item.room}}">
+</van-cell>
+</view>
+</van-cell-group>
+</view>
+</view>
+
+<van-tabbar active="{{ active }}" bind:change="onChange">
+  <van-tabbar-item icon="home-o">课表</van-tabbar-item>
+  <van-tabbar-item icon="search">搜索</van-tabbar-item>
+</van-tabbar>
