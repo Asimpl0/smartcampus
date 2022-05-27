@@ -81,6 +81,16 @@ Page({
 
     })
   },
+  onShow:function () {
+    var arr =  app.globalData.index
+    arr.forEach(function(element) {
+      if(element.id == 0)
+      element.times ++
+    });
+    console.log(arr)
+    app.globalData.index = arr
+    wx.setStorageSync('index', app.globalData.index)
+  },
   showCardView: function () {
 
   }

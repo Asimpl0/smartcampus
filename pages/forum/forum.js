@@ -326,12 +326,21 @@ Page({
     this.setData({
       forumid:app.globalData.forumid
     })
-    this.getPost()
-    
+    if(app.globalData.hasUserInfo){
+      this.getPost()
+    }
     this.setData({
       showpopup: false,
       search:''
     })
+    var arr =  app.globalData.index
+    arr.forEach(function(element) {
+      if(element.id == 6)
+      element.times ++
+    });
+    console.log(arr)
+    app.globalData.index = arr
+    wx.setStorageSync('index', app.globalData.index)
   },
 
   /**

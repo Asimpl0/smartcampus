@@ -7,6 +7,7 @@ App({
     const logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
+    
     // 登录
     wx.login({
         success: res => {
@@ -20,6 +21,7 @@ App({
         hasUserInfo: wx.getStorageSync('hasUserInfo'),
         hasLogin: wx.getStorageSync('hasLogin'),
         uid: wx.getStorageSync('uid'),
+        index: [],
         forumid: 2, //从我的跳转到forum的参数
         publicKey : `-----BEGIN PUBLIC KEY-----
         MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC6G41LM+Z8Y4VWALkNRqQRJXGi
@@ -29,6 +31,46 @@ App({
         -----END PUBLIC KEY-----               
 `
       }
+      
+         if(!wx.getStorageSync('index'))
+        {
+            this.globalData.index=[
+              {
+                id:0, //课表查询
+                times:0
+              },
+              {
+                id:1, //成绩查询
+                times:0
+              },
+              {
+                id:2, //图书借阅
+                times:0
+              },
+              {
+                id:3, //活动参与
+                times:0
+              },
+              {
+                id:4, //电话查询
+                times:0
+              },
+              {
+                id:5, //维修申报
+                times:0
+              },
+              {
+                id:6, //校园社区
+                times:0
+              }
+            ]
+
+        }
+        else
+        this.globalData.index = wx.getStorageSync('index')
+        
+      
+      
     console.log(this.globalData.hasUserInfo)
   }
 

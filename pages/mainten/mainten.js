@@ -93,6 +93,14 @@ Page({
     if (cookie) {
       header.Cookie = cookie;
     }
+    if(this.data.name==''||this.data.tele==''||this.data.detail=='')
+    {
+      wx.showToast({
+        title: '请填写完整！',
+        icon:'error'
+      })
+      return
+    }
     var URL = app.globalData.url + "mainten" + "?tele=" + this.data.tele + "&place=" + this.data.area + this.data.room + "&detail=" + this.data.detail;
     wx.request({
       url: URL,
@@ -247,7 +255,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var arr =  app.globalData.index
+    arr.forEach(function(element) {
+      if(element.id == 5)
+      element.times ++
+    });
+    console.log(arr)
+    app.globalData.index = arr
+    wx.setStorageSync('index', app.globalData.index)
   },
 
   /**

@@ -8,10 +8,9 @@
 >
   <view slot="action" bind:tap="onSearch">搜索</view>
 </van-search>
-<view style="margin-top: 30rpx;" >
+<view wx:if="{{showRecommend}}" style="margin-top: 30rpx;" >
   <van-cell-group inset title = "与您兴趣相同的用户借阅了：">
 </van-cell-group>
-</view>
 <view wx:for="{{UserRecommendList}}">
 <view style="margin-top: 30rpx;">
   <van-cell-group inset>
@@ -22,6 +21,8 @@
 </van-cell-group>
 </view>
 </view>
+</view>
+
 <view style="margin-top: 30rpx;" >
   <van-cell-group inset title = "全部活动：">
 </van-cell-group>

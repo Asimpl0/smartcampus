@@ -28,10 +28,29 @@
 <view wx:for="{{books}}">
 <view class="book">
   <van-cell-group inset>
-  <van-cell center title-width="70%"title="{{item.bname}}" value="编号：{{item.bid}}" />
-  <van-cell center title-width="70%"title="作者：{{item.bauthor}}"  label="出版社：{{item.bpublisher}}"  border="{{ false }}" >
+    
+  <!-- <van-cell center title-width="70%" value="编号：{{item.bid}}" >
+    <view slot="title">
+    <van-image width="80" height="100" src="{{item.src}}" />
+  </view>
+  </van-cell> -->
+  <van-card
+  title="{{item.bname}}"
+  thumb="{{ item.src }}"
+  
+>
+<view class="detail" slot="desc">
+ <text>ISBN: {{item.bid}}</text> 
+ <text>作者：{{item.bauthor}}</text>
+ <text>出版社：{{item.bpublisher}}</text>
+  </view>
+<view slot="footer">
+  <van-button wx:if="{{item.bnum>0}}" bind:click="showPopup" data-book= "{{item}}" icon="orders-o" type="info" size="small">借阅</van-button>
+  </view>
+</van-card>
+  <!-- <van-cell center title-width="70%"title="作者：{{item.bauthor}}"  label="出版社：{{item.bpublisher}}"  border="{{ false }}" >
     <van-button wx:if="{{item.bnum>0}}" bind:click="showPopup" data-book= "{{item}}" icon="orders-o" type="info" size="small">借阅</van-button>
-    </van-cell>
+    </van-cell> -->
 </van-cell-group>
 </view>
 </view>

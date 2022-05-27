@@ -34,6 +34,17 @@ Page({
     })
     this.showGrade();
   },
+
+  onShow:function (params) {
+    var arr =  app.globalData.index
+    arr.forEach(function(element) {
+      if(element.id == 1)
+      element.times ++
+    });
+    console.log(arr)
+    app.globalData.index = arr
+    wx.setStorageSync('index', app.globalData.index)
+  },
   onChangeYear: function (event) {
     this.setData({
       year: this.data.enteryear + event.detail

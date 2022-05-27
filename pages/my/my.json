@@ -9,6 +9,7 @@
     "van-grid-item": "@vant/weapp/grid-item/index"
   },
   "navigationBarTitleText": "个人中心",
+
   "component": true,
   "navigationStyle": "custom"
 }

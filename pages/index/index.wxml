@@ -23,8 +23,41 @@
 <view wx:if="{{hasLogin}}" class="section">
   <van-cell-group inset>
   <van-cell label="功能列表" />
+  
+  <view wx:if="{{!more}}">
   <van-grid square border= "{{false}}">
+    <view wx:for="{{index}}" wx:if="{{index < 3}}" wx:key="index">
+    <van-grid-item 
+  icon="{{functions[item.id].icon}}" 
+  text="{{functions[item.id].text}}" 
+  link-type="{{functions[item.id].type}}"
+  url="{{functions[item.id].url}}"/>
+  </view>
+  <van-grid-item
+  wx:if="{{!more}}" 
+  icon="/images/more.png" 
+  text="更多功能" 
+  bind:click="showMore"/>
+</van-grid>
+  </view>
+  <view wx:if="{{more}}">
+    <van-grid square border= "{{false}}">
+    <view wx:for="{{index}}" wx:key="index">
+    <van-grid-item 
+  icon="{{functions[item.id].icon}}" 
+  text="{{functions[item.id].text}}" 
+  link-type="{{functions[item.id].type}}"
+  url="{{functions[item.id].url}}"/>
+  </view>
   <van-grid-item 
+  wx:if="{{more}}"
+  icon="/images/more.png" 
+  text="折叠功能" 
+  bind:click="showMore"/>
+</van-grid>
+  </view>
+
+  <!-- <van-grid-item 
   icon="/images/course.png" 
   text="课表查询" 
   link-type="navigateTo"
@@ -72,8 +105,8 @@
   wx:if="{{more}}"
   icon="/images/more.png" 
   text="折叠功能" 
-  bind:click="showMore"/>
-</van-grid>
+  bind:click="showMore"/> -->
+
   </van-cell-group>
 </view>
 <view class="section">

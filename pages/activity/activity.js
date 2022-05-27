@@ -26,6 +26,7 @@ Page({
     stepactive: 0, //当前步骤
     activityselected: '', //当前选中的活动
     uid:'',
+    showRecommend:true,
     engagedactivities:[],//已参与活动
     showrate:false, //是否展示评分弹窗
     rateeid:'',//待评价的活动id
@@ -212,7 +213,8 @@ Page({
       success: (res) => {
         console.log(res.data)
         this.setData({
-          activities: res.data
+          activities: res.data,
+          showRecommend:false
         })
       }
     })
@@ -284,7 +286,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    var arr =  app.globalData.index
+    arr.forEach(function(element) {
+      if(element.id == 3)
+      element.times ++
+    });
+    console.log(arr)
+    app.globalData.index = arr
+    wx.setStorageSync('index', app.globalData.index)
   },
 
   /**

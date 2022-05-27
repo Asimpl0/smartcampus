@@ -40,7 +40,8 @@ login(e){
   if (cookie) {
     header.Cookie = cookie;
   }
-  
+  console.log("name_encrypt = " + rsa.encryptLong(this.data.username))
+  console.log("pwd_encrypt =" + rsa.encryptLong(this.data.password))
   // 设置公钥
 rsa.setPublicKey(this.data.publicKey)
   var URL = app.globalData.url + "login" 

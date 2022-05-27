@@ -42,6 +42,7 @@
   <van-cell wx:if="{{!hasLogin}}" size="large" icon="friends" title="统一身份认证" is-link link-type="navigateTo"
   url="/pages/login/login" />
   <van-cell wx:if="{{hasLogin}}" size="large" icon="clear" title="取消身份绑定" is-link bind:click="clearLogin" />
+  <van-cell  size="large" icon="more" title="意见反馈" is-link link-type="navigateTo"></van-cell>
 </van-cell-group>
 </view>
 <view>

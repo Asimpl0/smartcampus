@@ -1,10 +1,17 @@
 Page{
-  background: #f7f8fa;
+  background: #e3e3e1;
 }
 
 .book{
-  margin-top: 10rpx;
+  margin-top: 20rpx;
 }
 .section{
   margin-top: 25rpx;
+}
+
+.detail{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: space-around;
 }
